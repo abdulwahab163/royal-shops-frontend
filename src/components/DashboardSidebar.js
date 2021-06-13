@@ -11,7 +11,6 @@ import {
   Typography
 } from '@material-ui/core';
 import {
-  AlertCircle as AlertCircleIcon,
   BarChart as BarChartIcon,
   Lock as LockIcon,
   Settings as SettingsIcon,
@@ -45,6 +44,11 @@ const items = [
     title: 'Products'
   },
   {
+    href: '/app/orders',
+    icon: UserPlusIcon,
+    title: 'Orders'
+  },
+  {
     href: '/app/account',
     icon: UserIcon,
     title: 'Account'
@@ -63,11 +67,6 @@ const items = [
     href: '/register',
     icon: UserPlusIcon,
     title: 'Register'
-  },
-  {
-    href: '/404',
-    icon: AlertCircleIcon,
-    title: 'Error'
   }
 ];
 

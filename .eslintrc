@@ -4,22 +4,6 @@
     "es6": true,
     "browser": true
   },
-  "extends": [
-    "airbnb"
-  ],
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "paths": [
-          "."
-        ],
-        "extensions": [
-          ".js",
-          ".jsx"
-        ]
-      }
-    }
-  },
   "rules": {
     "comma-dangle": "off",
     "jsx-a11y/anchor-is-valid": "off",

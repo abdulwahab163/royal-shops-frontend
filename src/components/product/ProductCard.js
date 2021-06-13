@@ -28,74 +28,23 @@ const ProductCard = ({ product, ...rest }) => (
           pb: 3
         }}
       >
-        <Avatar
-          alt="Product"
-          src={product.media}
-          variant="square"
-        />
+        <Avatar alt="Product" src={product.media} variant="square" />
       </Box>
-      <Typography
-        align="center"
-        color="textPrimary"
-        gutterBottom
-        variant="h4"
-      >
-        {product.title}
+      <Typography align="center" color="textPrimary" gutterBottom variant="h5">
+        Name: {product.title}
       </Typography>
-      <Typography
-        align="center"
-        color="textPrimary"
-        variant="body1"
-      >
-        {product.description}
+      <Typography align="center" color="textPrimary" gutterBottom variant="h5">
+        Category: {product.category}
+      </Typography>
+      <Typography align="center" color="textPrimary" gutterBottom variant="h5">
+        Stock: {product.stock}
+      </Typography>
+      <Typography align="center" color="textPrimary" gutterBottom variant="h5">
+        Size: {product.size}
       </Typography>
     </CardContent>
     <Box sx={{ flexGrow: 1 }} />
     <Divider />
-    <Box sx={{ p: 2 }}>
-      <Grid
-        container
-        spacing={2}
-        sx={{ justifyContent: 'space-between' }}
-      >
-        <Grid
-          item
-          sx={{
-            alignItems: 'center',
-            display: 'flex'
-          }}
-        >
-          <AccessTimeIcon color="action" />
-          <Typography
-            color="textSecondary"
-            display="inline"
-            sx={{ pl: 1 }}
-            variant="body2"
-          >
-            Updated 2hr ago
-          </Typography>
-        </Grid>
-        <Grid
-          item
-          sx={{
-            alignItems: 'center',
-            display: 'flex'
-          }}
-        >
-          <GetAppIcon color="action" />
-          <Typography
-            color="textSecondary"
-            display="inline"
-            sx={{ pl: 1 }}
-            variant="body2"
-          >
-            {product.totalDownloads}
-            {' '}
-            Downloads
-          </Typography>
-        </Grid>
-      </Grid>
-    </Box>
   </Card>
 );
 

@@ -17,16 +17,13 @@ const CustomerListToolbar = (props) => (
         justifyContent: 'flex-end'
       }}
     >
-      <Button>
+      {/* <Button>
         Import
       </Button>
       <Button sx={{ mx: 1 }}>
         Export
-      </Button>
-      <Button
-        color="primary"
-        variant="contained"
-      >
+      </Button> */}
+      <Button color="primary" variant="contained">
         Add customer
       </Button>
     </Box>
@@ -39,10 +36,7 @@ const CustomerListToolbar = (props) => (
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SvgIcon
-                      fontSize="small"
-                      color="action"
-                    >
+                    <SvgIcon fontSize="small" color="action">
                       <SearchIcon />
                     </SvgIcon>
                   </InputAdornment>
