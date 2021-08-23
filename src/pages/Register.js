@@ -12,14 +12,25 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
+import axios from 'axios';
 
 const Register = () => {
   const navigate = useNavigate();
 
+  const handleRegister = (values) => {
+    console.log('object', values);
+    axios
+      .post('http://localhost:5000/api/v1/auth/register-account', { values })
+      .then((res) =>
+        console.log(res, 'res').catch((err) => console.log(err, 'err'))
+      );
+
+    //navigate('/app/dashboard', { replace: true });
+  };
   return (
     <>
       <Helmet>
-        <title>Register | Material Kit</title>
+        <title>Register</title>
       </Helmet>
       <Box
         sx={{
@@ -34,22 +45,40 @@ const Register = () => {
           <Formik
             initialValues={{
               email: '',
-              firstName: '',
-              lastName: '',
+              name: '',
               password: '',
+              confirmPassword: '',
+              address: '',
+              phone: '',
+              nationalId: '',
               policy: false
             }}
-            validationSchema={
-              Yup.object().shape({
-                email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                firstName: Yup.string().max(255).required('First name is required'),
-                lastName: Yup.string().max(255).required('Last name is required'),
-                password: Yup.string().max(255).required('password is required'),
-                policy: Yup.boolean().oneOf([true], 'This field must be checked')
-              })
-            }
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+            validationSchema={Yup.object().shape({
+              email: Yup.string()
+                .email('Must be a valid email')
+                .max(255)
+                .required('Email is required'),
+              name: Yup.string().max(255).required('Name is required'),
+              address: Yup.string().max(255).required('Address is required'),
+              phone: Yup.number()
+                .typeError("That doesn't look like a phone number")
+                .positive("A phone number can't start with a minus")
+                .integer("A phone number can't include a decimal point")
+                .min(8)
+                .required('A phone number is required'),
+              nationalId: Yup.string().max(255).required('CNIC No is required'),
+              password: Yup.string().max(255).required('Password is required'),
+              confirmPassword: Yup.string().when(
+                'password',
+                (password, field) =>
+                  password
+                    ? field.required().oneOf([Yup.ref('password')])
+                    : field
+              ),
+              policy: Yup.boolean().oneOf([true], 'This field must be checked')
+            })}
+            onSubmit={(values) => {
+              handleRegister(values);
             }}
           >
             {({
@@ -63,10 +92,7 @@ const Register = () => {
             }) => (
               <form onSubmit={handleSubmit}>
                 <Box sx={{ mb: 3 }}>
-                  <Typography
-                    color="textPrimary"
-                    variant="h2"
-                  >
+                  <Typography color="textPrimary" variant="h2">
                     Create new account
                   </Typography>
                   <Typography
@@ -78,40 +104,64 @@ const Register = () => {
                   </Typography>
                 </Box>
                 <TextField
-                  error={Boolean(touched.firstName && errors.firstName)}
+                  error={Boolean(touched.name && errors.name)}
                   fullWidth
-                  helperText={touched.firstName && errors.firstName}
-                  label="First name"
+                  helperText={touched.name && errors.name}
+                  label="Name"
                   margin="normal"
-                  name="firstName"
+                  name="name"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.firstName}
-                  variant="outlined"
-                />
-                <TextField
-                  error={Boolean(touched.lastName && errors.lastName)}
-                  fullWidth
-                  helperText={touched.lastName && errors.lastName}
-                  label="Last name"
-                  margin="normal"
-                  name="lastName"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.lastName}
+                  value={values.name}
                   variant="outlined"
                 />
                 <TextField
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
                   helperText={touched.email && errors.email}
-                  label="Email Address"
+                  label="Email"
                   margin="normal"
                   name="email"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="email"
                   value={values.email}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(touched.address && errors.address)}
+                  fullWidth
+                  helperText={touched.address && errors.address}
+                  label="Address"
+                  margin="normal"
+                  name="address"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.address}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(touched.phone && errors.phone)}
+                  fullWidth
+                  helperText={touched.phone && errors.phone}
+                  label="Phone"
+                  margin="normal"
+                  name="phone"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.phone}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(touched.nationalId && errors.nationalId)}
+                  fullWidth
+                  helperText={touched.nationalId && errors.nationalId}
+                  label="CNIC No"
+                  margin="normal"
+                  name="nationalId"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.nationalId}
                   variant="outlined"
                 />
                 <TextField
@@ -127,6 +177,21 @@ const Register = () => {
                   value={values.password}
                   variant="outlined"
                 />
+                <TextField
+                  error={Boolean(
+                    touched.confirmPassword && errors.confirmPassword
+                  )}
+                  fullWidth
+                  helperText={touched.confirmPassword && errors.confirmPassword}
+                  label="Confirm Password"
+                  margin="normal"
+                  name="confirmPassword"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="password"
+                  value={values.confirmPassword}
+                  variant="outlined"
+                />
                 <Box
                   sx={{
                     alignItems: 'center',
@@ -139,12 +204,8 @@ const Register = () => {
                     name="policy"
                     onChange={handleChange}
                   />
-                  <Typography
-                    color="textSecondary"
-                    variant="body1"
-                  >
-                    I have read the
-                    {' '}
+                  <Typography color="textSecondary" variant="body1">
+                    I have read the{' '}
                     <Link
                       color="primary"
                       component={RouterLink}
@@ -157,9 +218,7 @@ const Register = () => {
                   </Typography>
                 </Box>
                 {Boolean(touched.policy && errors.policy) && (
-                  <FormHelperText error>
-                    {errors.policy}
-                  </FormHelperText>
+                  <FormHelperText error>{errors.policy}</FormHelperText>
                 )}
                 <Box sx={{ py: 2 }}>
                   <Button
@@ -173,17 +232,9 @@ const Register = () => {
                     Sign up now
                   </Button>
                 </Box>
-                <Typography
-                  color="textSecondary"
-                  variant="body1"
-                >
-                  Have an account?
-                  {' '}
-                  <Link
-                    component={RouterLink}
-                    to="/login"
-                    variant="h6"
-                  >
+                <Typography color="textSecondary" variant="body1">
+                  Have an account?{' '}
+                  <Link component={RouterLink} to="/login" variant="h6">
                     Sign in
                   </Link>
                 </Typography>

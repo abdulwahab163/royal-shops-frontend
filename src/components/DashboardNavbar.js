@@ -3,7 +3,6 @@ import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { AppBar, Box, Hidden, IconButton, Toolbar } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import Logo from './Logo';
 
 const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
   const [notifications] = useState([]);
@@ -11,7 +10,9 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
   return (
     <AppBar elevation={0} {...rest}>
       <Toolbar>
-        <RouterLink to="/">Hi im Wahab</RouterLink>
+        <RouterLink style={{ color: 'white' }} to="/">
+          Royal Shops
+        </RouterLink>
         <Box sx={{ flexGrow: 1 }} />
 
         <Hidden lgUp>

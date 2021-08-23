@@ -5,7 +5,7 @@ import SettingsPassword from 'src/components/settings/SettingsPassword';
 const SettingsView = () => (
   <>
     <Helmet>
-      <title>Settings | Material Kit</title>
+      <title>Settings</title>
     </Helmet>
     <Box
       sx={{
