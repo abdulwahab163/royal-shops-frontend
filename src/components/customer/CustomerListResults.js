@@ -13,8 +13,10 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography
+  Typography,
 } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import getInitials from 'src/utils/getInitials';
 
 const CustomerListResults = ({ customers, ...rest }) => {
@@ -115,8 +117,8 @@ const CustomerListResults = ({ customers, ...rest }) => {
                   <TableCell>
                     {moment(customer.createdAt).format('DD/MM/YYYY')}
                   </TableCell>
-                  <TableCell>Delete</TableCell>
-                  <TableCell>Edit</TableCell>
+                  <TableCell style={{ textAlign: "center" }}> <DeleteIcon style={{ cursor: "pointer" }} /></TableCell>
+                  <TableCell style={{ textAlign: "center" }}><EditIcon style={{ cursor: "pointer" }} /></TableCell>
                 </TableRow>
               ))}
             </TableBody>

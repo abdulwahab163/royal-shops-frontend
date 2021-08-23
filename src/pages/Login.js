@@ -64,7 +64,7 @@ const Login = () => {
               values
             }) => (
               <form onSubmit={handleSubmit}>
-                <Box sx={{ mb: 3 }}>
+                <Box sx={{ mb: 3 }} style={{ textAlign: 'center' }}>
                   <Typography color="textPrimary" variant="h2">
                     Sign in
                   </Typography>
@@ -74,21 +74,6 @@ const Login = () => {
                     variant="body2"
                   >
                     Sign in on the internal platform
-                  </Typography>
-                </Box>
-
-                <Box
-                  sx={{
-                    pb: 1,
-                    pt: 3
-                  }}
-                >
-                  <Typography
-                    align="center"
-                    color="textSecondary"
-                    variant="body1"
-                  >
-                    login with email address
                   </Typography>
                 </Box>
                 <TextField

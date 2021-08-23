@@ -10,7 +10,8 @@ import {
   FormHelperText,
   Link,
   TextField,
-  Typography
+  Typography,
+  Grid
 } from '@material-ui/core';
 import axios from 'axios';
 
@@ -37,7 +38,7 @@ const Register = () => {
           backgroundColor: 'background.default',
           display: 'flex',
           flexDirection: 'column',
-          height: '100%',
+          height: 'auto',
           justifyContent: 'center'
         }}
       >
@@ -90,8 +91,8 @@ const Register = () => {
               touched,
               values
             }) => (
-              <form onSubmit={handleSubmit}>
-                <Box sx={{ mb: 3 }}>
+              <form onSubmit={handleSubmit} style={{ marginTop: 20, marginBottom: '40px' }}>
+                <Box sx={{ mb: 3 }} style={{ textAlign: 'center' }}>
                   <Typography color="textPrimary" variant="h2">
                     Create new account
                   </Typography>
@@ -140,58 +141,66 @@ const Register = () => {
                   value={values.address}
                   variant="outlined"
                 />
-                <TextField
-                  error={Boolean(touched.phone && errors.phone)}
-                  fullWidth
-                  helperText={touched.phone && errors.phone}
-                  label="Phone"
-                  margin="normal"
-                  name="phone"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.phone}
-                  variant="outlined"
-                />
-                <TextField
-                  error={Boolean(touched.nationalId && errors.nationalId)}
-                  fullWidth
-                  helperText={touched.nationalId && errors.nationalId}
-                  label="CNIC No"
-                  margin="normal"
-                  name="nationalId"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.nationalId}
-                  variant="outlined"
-                />
-                <TextField
-                  error={Boolean(touched.password && errors.password)}
-                  fullWidth
-                  helperText={touched.password && errors.password}
-                  label="Password"
-                  margin="normal"
-                  name="password"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="password"
-                  value={values.password}
-                  variant="outlined"
-                />
-                <TextField
-                  error={Boolean(
-                    touched.confirmPassword && errors.confirmPassword
-                  )}
-                  fullWidth
-                  helperText={touched.confirmPassword && errors.confirmPassword}
-                  label="Confirm Password"
-                  margin="normal"
-                  name="confirmPassword"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="password"
-                  value={values.confirmPassword}
-                  variant="outlined"
-                />
+                <Grid container direction="row" style={{ justifyContent: 'space-between' }}>
+                  <Grid item style={{ flex: 1, marginRight: 10 }}>
+                    <TextField
+                      error={Boolean(touched.phone && errors.phone)}
+                      fullWidth
+                      helperText={touched.phone && errors.phone}
+                      label="Phone"
+                      margin="normal"
+                      name="phone"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.phone}
+                      variant="outlined"
+                    /></Grid>
+
+                  <Grid item style={{ flex: 1 }}>
+                    <TextField
+                      error={Boolean(touched.nationalId && errors.nationalId)}
+                      fullWidth
+                      helperText={touched.nationalId && errors.nationalId}
+                      label="CNIC No"
+                      margin="normal"
+                      name="nationalId"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.nationalId}
+                      variant="outlined"
+                    />
+                  </Grid></Grid>
+                <Grid container direction="row" style={{ justifyContent: 'space-between' }}>
+                  <Grid item style={{ flex: 1, marginRight: 10 }}>
+                    <TextField
+                      error={Boolean(touched.password && errors.password)}
+                      fullWidth
+                      helperText={touched.password && errors.password}
+                      label="Password"
+                      margin="normal"
+                      name="password"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      type="password"
+                      value={values.password}
+                      variant="outlined"
+                    /></Grid>
+                  <Grid item style={{ flex: 1 }}>
+                    <TextField
+                      error={Boolean(
+                        touched.confirmPassword && errors.confirmPassword
+                      )}
+                      fullWidth
+                      helperText={touched.confirmPassword && errors.confirmPassword}
+                      label="Confirm Password"
+                      margin="normal"
+                      name="confirmPassword"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      type="password"
+                      value={values.confirmPassword}
+                      variant="outlined"
+                    /></Grid></Grid>
                 <Box
                   sx={{
                     alignItems: 'center',

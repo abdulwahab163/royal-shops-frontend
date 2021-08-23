@@ -1,3 +1,5 @@
+import React, { useState } from 'react'
+
 import {
   Box,
   Button,
@@ -8,17 +10,38 @@ import {
   SvgIcon
 } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
+import AddIcon from '@material-ui/icons/Add';
+import CategoryIcon from '@material-ui/icons/Category';
+import { makeStyles } from '@material-ui/core/styles';
 
-const ProductListToolbar = (props) => (
-  <Box {...props}>
+import Dialog from './../Dialog';
+import AddProducts from './AddProducts';
+import AddCategory from './AddCategory';
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(1),
+
+  },
+}));
+
+const ProductListToolbar = (props) => {
+  const classes = useStyles();
+  const [addProductOpen, setAddProductOpen] = useState(false)
+  const [addCategoryOpen, setAddCategoryOpen] = useState(false)
+
+  return (<Box {...props}>
     <Box
       sx={{
         display: 'flex',
         justifyContent: 'flex-end'
       }}
     >
-      <Button color="primary" variant="contained">
-        Add product
+      <Button onClick={() => setAddCategoryOpen(true)} style={{ marginRight: 10 }} className={classes.button} color="primary" startIcon={<CategoryIcon />} variant="contained">
+        Add Category
+      </Button>
+      <Button onClick={() => setAddProductOpen(true)} color="primary" startIcon={<AddIcon />} variant="contained">
+        Add Product
       </Button>
     </Box>
     <Box sx={{ mt: 3 }}>
@@ -43,7 +66,15 @@ const ProductListToolbar = (props) => (
         </CardContent>
       </Card>
     </Box>
+    {/* Product Dialog */}
+    <Dialog open={addProductOpen} setOpen={setAddProductOpen}>
+      <AddProducts />
+    </Dialog>
+    {/* Category Dialog */}
+    <Dialog maxWidth={'sm'} buttonWidth={"100%"} open={addCategoryOpen} setOpen={setAddCategoryOpen}>
+      <AddCategory />
+    </Dialog>
   </Box>
-);
-
+  );
+}
 export default ProductListToolbar;
