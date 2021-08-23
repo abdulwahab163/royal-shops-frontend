@@ -22,11 +22,11 @@ const Register = () => {
     console.log('object', values);
     axios
       .post('http://localhost:5000/api/v1/auth/register-account', { values })
-      .then((res) =>
-        console.log(res, 'res').catch((err) => console.log(err, 'err'))
-      );
-
-    //navigate('/app/dashboard', { replace: true });
+      .then((res) => {
+        console.log(res, 'res');
+        navigate('/app/dashboard', { replace: true });
+      })
+      .catch((err) => console.log(err, 'err'));
   };
   return (
     <>
@@ -91,7 +91,10 @@ const Register = () => {
               touched,
               values
             }) => (
-              <form onSubmit={handleSubmit} style={{ marginTop: 20, marginBottom: '40px' }}>
+              <form
+                onSubmit={handleSubmit}
+                style={{ marginTop: 20, marginBottom: '40px' }}
+              >
                 <Box sx={{ mb: 3 }} style={{ textAlign: 'center' }}>
                   <Typography color="textPrimary" variant="h2">
                     Create new account
@@ -141,7 +144,11 @@ const Register = () => {
                   value={values.address}
                   variant="outlined"
                 />
-                <Grid container direction="row" style={{ justifyContent: 'space-between' }}>
+                <Grid
+                  container
+                  direction="row"
+                  style={{ justifyContent: 'space-between' }}
+                >
                   <Grid item style={{ flex: 1, marginRight: 10 }}>
                     <TextField
                       error={Boolean(touched.phone && errors.phone)}
@@ -154,7 +161,8 @@ const Register = () => {
                       onChange={handleChange}
                       value={values.phone}
                       variant="outlined"
-                    /></Grid>
+                    />
+                  </Grid>
 
                   <Grid item style={{ flex: 1 }}>
                     <TextField
@@ -169,8 +177,13 @@ const Register = () => {
                       value={values.nationalId}
                       variant="outlined"
                     />
-                  </Grid></Grid>
-                <Grid container direction="row" style={{ justifyContent: 'space-between' }}>
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  direction="row"
+                  style={{ justifyContent: 'space-between' }}
+                >
                   <Grid item style={{ flex: 1, marginRight: 10 }}>
                     <TextField
                       error={Boolean(touched.password && errors.password)}
@@ -184,14 +197,17 @@ const Register = () => {
                       type="password"
                       value={values.password}
                       variant="outlined"
-                    /></Grid>
+                    />
+                  </Grid>
                   <Grid item style={{ flex: 1 }}>
                     <TextField
                       error={Boolean(
                         touched.confirmPassword && errors.confirmPassword
                       )}
                       fullWidth
-                      helperText={touched.confirmPassword && errors.confirmPassword}
+                      helperText={
+                        touched.confirmPassword && errors.confirmPassword
+                      }
                       label="Confirm Password"
                       margin="normal"
                       name="confirmPassword"
@@ -200,7 +216,9 @@ const Register = () => {
                       type="password"
                       value={values.confirmPassword}
                       variant="outlined"
-                    /></Grid></Grid>
+                    />
+                  </Grid>
+                </Grid>
                 <Box
                   sx={{
                     alignItems: 'center',

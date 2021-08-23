@@ -11,6 +11,7 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
+import axios from 'axios';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,10 +19,11 @@ const Login = () => {
     console.log('object', values);
     axios
       .post('http://localhost:5000/api/v1/auth/login', { values })
-      .then((res) =>
-        console.log(res, 'res').catch((err) => console.log(err, 'err'))
-      );
-    //navigate('/app/dashboard', { replace: true });
+      .then((res) => {
+        console.log(res, 'res');
+        navigate('/app/dashboard', { replace: true });
+      })
+      .catch((err) => console.log(err, 'err'));
   };
   return (
     <>
