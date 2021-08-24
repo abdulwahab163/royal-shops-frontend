@@ -11,17 +11,19 @@ import ProductList from 'src/pages/ProductList';
 import Register from 'src/pages/Register';
 import Settings from 'src/pages/Settings';
 
+
+const user = localStorage.getItem('user');
 const routes = [
   {
     path: 'app',
-    element: <DashboardLayout />,
+    element: user ? <DashboardLayout /> : <MainLayout />,
     children: [
-      { path: 'account', element: <Account /> },
-      { path: 'customers', element: <CustomerList /> },
-      { path: 'dashboard', element: <Dashboard /> },
-      { path: 'orders', element: <Orders /> },
-      { path: 'products', element: <ProductList /> },
-      { path: 'settings', element: <Settings /> },
+      { path: 'account', element: user ? <Account /> : <Login /> },
+      { path: 'customers', element: user ? <CustomerList /> : <Login /> },
+      { path: 'dashboard', element: user ? <Dashboard /> : < Login /> },
+      { path: 'orders', element: user ? <Orders /> : <Login /> },
+      { path: 'products', element: user ? <ProductList /> : <Login /> },
+      { path: 'settings', element: user ? <Settings /> : <Login /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },

@@ -27,7 +27,7 @@ const user = {
   name: 'Katarina Smith'
 };
 
-const items = [
+const authRoutes = [
   {
     href: '/app/dashboard',
     icon: BarChartIcon,
@@ -69,6 +69,8 @@ const items = [
     title: 'Register'
   }
 ];
+const items = localStorage.getItem('user') && authRoutes
+
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   const location = useLocation();
@@ -95,7 +97,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           p: 2
         }}
       >
-        <Avatar
+        {localStorage.getItem('user') && <> <Avatar
           component={RouterLink}
           src={user.avatar}
           sx={{
@@ -105,17 +107,18 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           }}
           to="/app/account"
         />
-        <Typography color="textPrimary" variant="h5">
-          {user.name}
-        </Typography>
-        <Typography color="textSecondary" variant="body2">
-          {user.jobTitle}
-        </Typography>
+          <Typography color="textPrimary" variant="h5">
+            {user.name}
+          </Typography>
+          <Typography color="textSecondary" variant="body2">
+            {user.jobTitle}
+          </Typography>
+        </>}
       </Box>
       <Divider />
       <Box sx={{ p: 2 }}>
         <List>
-          {items.map((item) => (
+          {items && items.map((item) => (
             <NavItem
               href={item.href}
               key={item.title}
@@ -172,7 +175,7 @@ DashboardSidebar.propTypes = {
 };
 
 DashboardSidebar.defaultProps = {
-  onMobileClose: () => {},
+  onMobileClose: () => { },
   openMobile: false
 };
 
