@@ -17,11 +17,9 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = (values) => {
-    console.log('object', values);
     axios
       .post('http://localhost:5000/api/v1/auth/login', { values })
       .then((res) => {
-        console.log('user', JSON.stringify(res.data.userData.userInfo));
         localStorage.setItem('token', res.data.userData.tokenInfo);
         localStorage.setItem(
           'user',
