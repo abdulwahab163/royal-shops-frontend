@@ -13,6 +13,8 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 
+import { toastMessage } from './../components/Toastify'
+
 const Login = () => {
   const navigate = useNavigate();
 
@@ -27,7 +29,9 @@ const Login = () => {
         );
         navigate('/app/dashboard', { replace: true });
       })
-      .catch((err) => console.log(err, 'err'));
+      .catch((err) => {
+        toastMessage(err.message, 'error')
+      });
   };
 
   return (
@@ -45,6 +49,7 @@ const Login = () => {
         }}
       >
         <Container maxWidth="sm">
+
           <Formik
             initialValues={{
               email: '',
