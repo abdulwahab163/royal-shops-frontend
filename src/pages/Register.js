@@ -13,21 +13,15 @@ import {
   Typography,
   Grid
 } from '@material-ui/core';
-import axios from 'axios';
+
+import { registerUser } from './../redux/actions/auth.actions'
 
 const Register = () => {
-  const navigate = useNavigate();
 
-  const handleRegister = (values) => {
-    console.log('object', values);
-    axios
-      .post('http://localhost:5000/api/v1/auth/register-account', { values })
-      .then((res) => {
-        console.log(res, 'res');
-        navigate('/app/dashboard', { replace: true });
-      })
-      .catch((err) => console.log(err, 'err'));
+  const handleRegisterUser = (values) => {
+    registerUser(values)
   };
+
   return (
     <>
       <Helmet>
@@ -79,7 +73,7 @@ const Register = () => {
               policy: Yup.boolean().oneOf([true], 'This field must be checked')
             })}
             onSubmit={(values) => {
-              handleRegister(values);
+              handleRegisterUser(values);
             }}
           >
             {({

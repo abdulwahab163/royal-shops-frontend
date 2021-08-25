@@ -1,4 +1,4 @@
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -11,27 +11,13 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
-import axios from 'axios';
 
-import { toastMessage } from './../components/Toastify'
+import { signIn } from './../redux/actions/auth.actions'
 
 const Login = () => {
-  const navigate = useNavigate();
 
   const handleLogin = (values) => {
-    axios
-      .post('http://localhost:5000/api/v1/auth/login', { values })
-      .then((res) => {
-        localStorage.setItem('token', res.data.userData.tokenInfo);
-        localStorage.setItem(
-          'user',
-          JSON.stringify(res.data.userData.userInfo)
-        );
-        navigate('/app/dashboard', { replace: true });
-      })
-      .catch((err) => {
-        toastMessage(err.message, 'error')
-      });
+    signIn(values)
   };
 
   return (
