@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 
-import { toastMessage } from './../components/Toastify'
+import { toastMessage } from './../components/Toastify';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -27,10 +27,11 @@ const Login = () => {
           'user',
           JSON.stringify(res.data.userData.userInfo)
         );
+        toastMessage('Logged in Successfully', 'success');
         navigate('/app/dashboard', { replace: true });
       })
       .catch((err) => {
-        toastMessage(err.message, 'error')
+        toastMessage(err.message, 'error');
       });
   };
 
@@ -49,7 +50,6 @@ const Login = () => {
         }}
       >
         <Container maxWidth="sm">
-
           <Formik
             initialValues={{
               email: '',
