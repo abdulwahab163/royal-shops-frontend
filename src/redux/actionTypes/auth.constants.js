@@ -11,6 +11,6 @@ export const authConstants = {
 
 	AUTH_TOKEN: "AUTH_TOKEN",
 
-	User: 'USER'
+	USER: 'USER'
 
 };

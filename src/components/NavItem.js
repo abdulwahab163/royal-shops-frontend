@@ -5,6 +5,9 @@ import {
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button, ListItem } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+
+import { logout } from './../redux/actions/auth.actions'
 
 const NavItem = ({
   href,
@@ -13,14 +16,16 @@ const NavItem = ({
   ...rest
 }) => {
   const location = useLocation();
+  const dispatch = useDispatch()
 
   const active = href ? !!matchPath({
     path: href,
     end: false
   }, location.pathname) : false;
-
   return (
+
     <ListItem
+      onClick={() => { rest.isclick && dispatch(logout()) }}
       disableGutters
       sx={{
         display: 'flex',

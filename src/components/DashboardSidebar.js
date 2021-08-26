@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   Avatar,
@@ -67,14 +68,21 @@ const authRoutes = [
     href: '/register',
     icon: UserPlusIcon,
     title: 'Register'
+  },
+  {
+    href: '/login',
+    icon: UserPlusIcon,
+    title: 'Logout',
+    isclick: "true"
   }
 ];
-const token = true
-const items = token && authRoutes
+
 
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   const location = useLocation();
+  const token = useSelector(state => state.auth.user)
+  const items = token && authRoutes
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -125,6 +133,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
               key={item.title}
               title={item.title}
               icon={item.icon}
+              isclick={item.isclick}
             />
           ))}
         </List>

@@ -38,6 +38,10 @@ export const signIn = (loginData) => async (disptach) => {
 				authConstants.AUTH_TOKEN,
 				JSON.stringify(signInResponse?.user?.tokenInfo)
 			);
+			localStorage.setItem(
+				authConstants.USER,
+				JSON.stringify(signInResponse?.user?.userInfo)
+			);
 			disptach({
 				type: authConstants.SIGNIN_SUCCESS,
 				payload: signInResponse.user?.userInfo,
@@ -57,7 +61,8 @@ export const signIn = (loginData) => async (disptach) => {
 };
 
 export const logout = () => (disptach) => {
-	localStorage.removeItem(AUTH_TOKEN);
+	localStorage.removeItem(authConstants.AUTH_TOKEN);
+	localStorage.removeItem(authConstants.USER);
 	disptach({ type: authConstants.LOGOUT, payload: "Logged Out Successfully" });
 };
 
