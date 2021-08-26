@@ -6,17 +6,17 @@ export default class Auth {
 	 * @returns {Promise <T> | never>}
 	 */
 	registerUser = async (payload) => {
-		const registeredResponce = await http.post('/register-account', payload);
-		if (registeredResponce && registeredResponce?.data?.success) {
+		const res = await http.post('/register-account', { values: payload });
+		if (res && res?.data?.success) {
 			return {
-				user: signInResponse?.data,
+				user: res?.data?.result,
 				success: true,
 			};
 		} else {
 			return {
 				success: false,
-				status: signInResponse?.data?.status,
-				message: signInResponse?.data?.message,
+				status: res?.data?.status,
+				message: res?.data?.msg,
 			};
 		}
 
@@ -27,18 +27,18 @@ export default class Auth {
 	 * @returns {Promise <T> | never>}
 	 */
 	signIn = async ({ email, password }) => {
-		const signInResponse = await http.post('/login', { email, password });
+		const res = await http.post('/login', { email, password });
 
-		if (signInResponse && signInResponse?.data?.userData?.tokenInfo) {
+		if (res && res?.data?.userData?.tokenInfo) {
 			return {
-				user: signInResponse?.data?.userData,
+				user: res?.data?.userData,
 				success: true,
 			};
 		} else {
 			return {
 				success: false,
-				status: signInResponse?.status,
-				message: signInResponse?.statusText,
+				status: res?.status,
+				message: res?.statusText,
 			};
 		}
 	};

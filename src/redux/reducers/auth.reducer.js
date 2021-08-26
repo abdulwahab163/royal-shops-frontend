@@ -15,6 +15,7 @@ const authReducer = (state = initialState, action) => {
 		case authConstants.REGISTER_USER_REQUEST: {
 			return {
 				...state,
+				user: null,
 				isAuthenticated: false,
 				loading: true,
 				error: null,
@@ -25,17 +26,18 @@ const authReducer = (state = initialState, action) => {
 			toastMessage("Registered Successfully", 'success')
 			return {
 				...state,
-				user: payload,
+				user: false,
 				isAuthenticated: false,
-				loadingStatus: true,
+				loadingStatus: false,
 				error: null,
 			};
 		}
 
 		case authConstants.REGISTER_USER_FAIL: {
-			toastMessage("Registered UnSuccessfull", 'error')
+			toastMessage(payload, 'error')
 			return {
 				...state,
+				user: null,
 				isAuthenticated: false,
 				loadingStatus: false,
 				error: payload,
@@ -46,6 +48,7 @@ const authReducer = (state = initialState, action) => {
 		case authConstants.SIGNIN_REQUEST: {
 			return {
 				...state,
+				user: null,
 				isAuthenticated: false,
 				loadingStatus: true,
 				error: null,
@@ -67,6 +70,7 @@ const authReducer = (state = initialState, action) => {
 			toastMessage("SignIn UnSuccessfull", 'error')
 			return {
 				...state,
+				user: null,
 				isAuthenticated: false,
 				loadingStatus: false,
 				error: payload,
@@ -77,10 +81,7 @@ const authReducer = (state = initialState, action) => {
 			return {
 				...state,
 				user: null,
-				credentials: null,
-				userRegistered: false,
 				isAuthenticated: false,
-				isLoggedIn: false,
 				loadingStatus: null,
 				error: null,
 			};

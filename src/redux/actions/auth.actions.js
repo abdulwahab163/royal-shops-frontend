@@ -8,51 +8,58 @@ export const registerUser = (userData) => async (disptach) => {
 	disptach({ type: authConstants.REGISTER_USER_REQUEST });
 
 	try {
-		const registeredResponce = await auth.registerUser(userData);
-		if (registeredResponce?.success) {
+		const res = await auth.registerUser(userData);
+		if (res?.success) {
 			disptach({
 				type: authConstants.REGISTER_USER_SUCCESS,
-				payload: registeredResponce?.user?.data,
+				payload: res?.user?.data,
 			});
 		} else {
 			disptach({
 				type: authConstants.REGISTER_USER_FAIL,
-				payload: registeredResponce.message,
+				payload: res.message,
 			});
 		}
 	} catch (e) {
-		disptach({
-			type: authConstants.REGISTER_USER_FAIL,
-			payload: "Sign in Failed",
-		});
+		if (e?.response?.status === 400) {
+			disptach({
+				type: authConstants.REGISTER_USER_FAIL,
+				payload: e?.response?.data?.msg,
+			});
+		} else
+			disptach({
+				type: authConstants.REGISTER_USER_FAIL,
+				payload: "Something Went Wrong",
+			});
 	}
 };
 
 export const signIn = (loginData) => async (disptach) => {
 	disptach({ type: authConstants.SIGNIN_REQUEST });
 	try {
-		const signInResponse = await auth.signIn(loginData);
+		const res = await auth.signIn(loginData);
 
-		if (signInResponse.success) {
+		if (res.success) {
 			localStorage.setItem(
 				authConstants.AUTH_TOKEN,
-				JSON.stringify(signInResponse?.user?.tokenInfo)
+				JSON.stringify(res?.user?.tokenInfo)
 			);
 			localStorage.setItem(
 				authConstants.USER,
-				JSON.stringify(signInResponse?.user?.userInfo)
+				JSON.stringify(res?.user?.userInfo)
 			);
 			disptach({
 				type: authConstants.SIGNIN_SUCCESS,
-				payload: signInResponse.user?.userInfo,
+				payload: res.user?.userInfo,
 			});
 		} else {
 			disptach({
 				type: authConstants.SIGNIN_FAIL,
-				payload: signInResponse.message,
+				payload: res.message,
 			});
 		}
 	} catch (e) {
+
 		disptach({
 			type: authConstants.SIGNIN_FAIL,
 			payload: "Sign in Failed",
