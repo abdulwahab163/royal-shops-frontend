@@ -66,6 +66,10 @@ export const logout = () => (disptach) => {
 	disptach({ type: authConstants.LOGOUT, payload: "Logged Out Successfully" });
 };
 
+export const setUserAndToken = (token, userInfo) => async (disptach) => {
+	disptach({ type: authConstants.SET_USER_AND_TOKEN, payload: { token, userInfo } });
+}
+
 export const getUserInfo = () => async (disptach) => {
 	try {
 		const userInfoResponse = await auth.getUserInfo();

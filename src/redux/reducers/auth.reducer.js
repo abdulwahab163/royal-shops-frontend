@@ -94,6 +94,22 @@ const authReducer = (state = initialState, action) => {
 				error: null
 			};
 		}
+		case authConstants.SET_USER_AND_TOKEN: {
+			return {
+				...state,
+				user: payload.userInfo,
+				isAuthenticated: payload.token && payload.token,
+				error: null
+			};
+		}
+		case authConstants.REMOVE_USER_AND_TOKEN: {
+			return {
+				...state,
+				user: null,
+				isAuthenticated: false,
+				error: null
+			};
+		}
 		default:
 			return state;
 	}
