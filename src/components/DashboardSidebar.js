@@ -69,7 +69,8 @@ const authRoutes = [
     title: 'Register'
   }
 ];
-const items = localStorage.getItem('user') && authRoutes
+const token = true
+const items = token && authRoutes
 
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
@@ -97,7 +98,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           p: 2
         }}
       >
-        {localStorage.getItem('user') && <> <Avatar
+        {token && <> <Avatar
           component={RouterLink}
           src={user.avatar}
           sx={{

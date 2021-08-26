@@ -26,18 +26,19 @@ export default class Auth {
 	 * User signIn
 	 * @returns {Promise <T> | never>}
 	 */
-	signIn = async (payload) => {
-		const signUpResponse = await http.post('auth/login', payload);
-		if (signUpResponse && signUpResponse?.data?.success) {
+	signIn = async ({ email, password }) => {
+		const signInResponse = await http.post('/login', { email, password });
+
+		if (signInResponse && signInResponse?.data?.userData?.tokenInfo) {
 			return {
-				user: signUpResponse?.data,
+				user: signInResponse?.data?.userData,
 				success: true,
 			};
 		} else {
 			return {
 				success: false,
-				status: signUpResponse?.data?.status,
-				message: signUpResponse?.data?.message,
+				status: signInResponse?.status,
+				message: signInResponse?.statusText,
 			};
 		}
 	};
@@ -58,18 +59,6 @@ export default class Auth {
 		}
 	};
 
-	getAgentBySlug = async (slug) => {
-		try {
-			const agentInfo = await http.get(`agent/get-info/${slug}`);
-			if (agentInfo && agentInfo?.data?.success) {
-				return agentInfo?.data.results;
-			} else {
-				return null;
-			}
-		} catch (error) {
-			return null;
-		}
-	};
 
 	/**
 	 * User Authentication

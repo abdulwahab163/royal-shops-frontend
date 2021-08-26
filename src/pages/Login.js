@@ -1,7 +1,9 @@
-import { Link as RouterLink } from 'react-router-dom';
+import React, { useEffect } from 'react'
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
   Button,
@@ -14,10 +16,20 @@ import {
 import { signIn } from './../redux/actions/auth.actions'
 
 const Login = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const user = useSelector(state => state.auth.user)
 
   const handleLogin = (values) => {
-    signIn(values)
+    dispatch(signIn(values))
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate('/app/dashboard', { replace: true })
+    }
+
+  }, [user])
 
   return (
     <>

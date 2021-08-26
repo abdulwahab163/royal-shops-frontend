@@ -1,22 +1,19 @@
-import { useNavigate } from 'react-router-dom'
 import { authConstants } from './../actionTypes/index';
 import { AuthApis } from '../../services';
 
 const auth = new AuthApis();
 
 export const registerUser = (userData) => async (disptach) => {
-	const navigate = useNavigate()
+
 	disptach({ type: authConstants.REGISTER_USER_REQUEST });
 
 	try {
 		const registeredResponce = await auth.registerUser(userData);
 		if (registeredResponce?.success) {
-			//localStorage.setItem(AUTH_TOKEN, );
 			disptach({
 				type: authConstants.REGISTER_USER_SUCCESS,
 				payload: registeredResponce?.user?.data,
 			});
-			navigate('/login', { replace: true })
 		} else {
 			disptach({
 				type: authConstants.REGISTER_USER_FAIL,
@@ -37,14 +34,13 @@ export const signIn = (loginData) => async (disptach) => {
 		const signInResponse = await auth.signIn(loginData);
 
 		if (signInResponse.success) {
-			navigate('/app/dashboard', { replace: true })
 			localStorage.setItem(
 				authConstants.AUTH_TOKEN,
-				signInResponse?.user?.data
+				JSON.stringify(signInResponse?.user?.tokenInfo)
 			);
 			disptach({
 				type: authConstants.SIGNIN_SUCCESS,
-				payload: signInResponse.user?.data,
+				payload: signInResponse.user?.userInfo,
 			});
 		} else {
 			disptach({

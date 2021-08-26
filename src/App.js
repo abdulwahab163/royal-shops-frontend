@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify'
 
 const App = () => {
-  const routing = useRoutes(routes);
+  const routing = useRoutes(routes());
 
   return (
     <ThemeProvider theme={theme}>
