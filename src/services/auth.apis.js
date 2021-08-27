@@ -1,4 +1,4 @@
-import http from './ApiWrapper';
+import http from './apiWrapper';
 
 export default class Auth {
 	/**

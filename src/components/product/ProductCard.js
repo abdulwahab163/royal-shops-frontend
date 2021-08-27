@@ -6,10 +6,12 @@ import {
   CardContent,
   Divider,
   Grid,
-  Typography
+  Typography,
+  Tooltip
 } from '@material-ui/core';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import GetAppIcon from '@material-ui/icons/GetApp';
+
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 const ProductCard = ({ product, ...rest }) => (
   <Card
@@ -20,7 +22,9 @@ const ProductCard = ({ product, ...rest }) => (
     }}
     {...rest}
   >
-    <CardContent>
+    <CardContent style={{ position: 'relative' }}>
+      <Grid style={{ position: 'absolute', right: '17px', top: '14px' }}><Tooltip arrow title="Edit"><EditIcon color="primary" style={{ cursor: 'pointer', border: "1px solid", marginRight: 8 }} /></Tooltip>
+        <Tooltip arrow title="Delete"><DeleteIcon style={{ cursor: 'pointer', border: "1px solid" }} color="secondary" /></Tooltip></Grid>
       <Box
         sx={{
           display: 'flex',
@@ -28,24 +32,43 @@ const ProductCard = ({ product, ...rest }) => (
           pb: 3
         }}
       >
-        <Avatar alt="Product" src={product.media} variant="square" />
+        <Avatar style={{
+          width: 220,
+          height: 170
+        }} alt="Product" src={product.media} variant="square" />
       </Box>
-      <Typography align="center" color="textPrimary" gutterBottom variant="h5">
-        Name: {product.title}
-      </Typography>
-      <Typography align="center" color="textPrimary" gutterBottom variant="h5">
-        Category: {product.category}
-      </Typography>
-      <Typography align="center" color="textPrimary" gutterBottom variant="h5">
-        Stock: {product.stock}
-      </Typography>
-      <Typography align="center" color="textPrimary" gutterBottom variant="h5">
-        Size: {product.size}
-      </Typography>
+      <Grid container justifyContent="space-around">
+        <Grid item>
+          <Typography color="textPrimary" gutterBottom variant="subtitle1">
+            Name:<span style={{
+              marginLeft: 26,
+              fontWeight: "bold"
+            }}>{product.title}</span>
+          </Typography>
+          <Typography color="textPrimary" gutterBottom variant="subtitle1">
+            Category: <span style={{
+              fontWeight: "bold"
+            }}>{product.category}</span>
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography color="textPrimary" gutterBottom variant="subtitle1">
+            Stock: <span style={{
+              fontWeight: "bold"
+            }}>{product.stock}</span>
+          </Typography>
+          <Typography color="textPrimary" gutterBottom variant="subtitle1">
+            Size: <span style={{
+              marginLeft: 10,
+              fontWeight: "bold"
+            }}>{product.size}</span>
+          </Typography>
+        </Grid>
+      </Grid>
     </CardContent>
     <Box sx={{ flexGrow: 1 }} />
     <Divider />
-  </Card>
+  </Card >
 );
 
 ProductCard.propTypes = {

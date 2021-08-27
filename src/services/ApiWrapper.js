@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { authConstants } from './../redux/actionTypes/index';
+import { authConstants } from '../redux/actionTypes/index';
 /**
  * 
  * @type {AxiosInstance}

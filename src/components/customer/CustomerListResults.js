@@ -6,7 +6,6 @@ import {
   Avatar,
   Box,
   Card,
-  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -14,9 +13,11 @@ import {
   TablePagination,
   TableRow,
   Typography,
+  Tooltip
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+
 import getInitials from 'src/utils/getInitials';
 
 const CustomerListResults = ({ customers, ...rest }) => {
@@ -121,8 +122,8 @@ const CustomerListResults = ({ customers, ...rest }) => {
                   <TableCell>
                     {5000}
                   </TableCell>
-                  <TableCell style={{ textAlign: "center" }}> <DeleteIcon style={{ cursor: "pointer" }} /></TableCell>
-                  <TableCell style={{ textAlign: "center" }}><EditIcon style={{ cursor: "pointer" }} /></TableCell>
+                  <TableCell style={{ textAlign: "center" }}>  <Tooltip arrow title="Delete"><DeleteIcon style={{ cursor: 'pointer' }} color="secondary" /></Tooltip></TableCell>
+                  <TableCell style={{ textAlign: "center" }}><Tooltip arrow title="Edit"><EditIcon color="primary" style={{ cursor: 'pointer' }} /></Tooltip></TableCell>
                 </TableRow>
               ))}
             </TableBody>

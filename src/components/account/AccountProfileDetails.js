@@ -27,12 +27,11 @@ const states = [
 
 const AccountProfileDetails = (props) => {
   const [values, setValues] = useState({
-    firstName: 'Katarina',
-    lastName: 'Smith',
+    name: 'Katarina',
     email: 'demo@devias.io',
-    phone: '',
-    state: 'Alabama',
-    country: 'USA'
+    phone: '04454504548',
+    address: "bla laa balla",
+    nationalId: '611010145985'
   });
 
   const handleChange = (event) => {
@@ -66,27 +65,12 @@ const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                helperText="Please specify the first name"
-                label="First name"
-                name="firstName"
+                helperText="Please specify the name"
+                label="Name"
+                name="name"
                 onChange={handleChange}
                 required
-                value={values.firstName}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Last name"
-                name="lastName"
-                onChange={handleChange}
-                required
-                value={values.lastName}
+                value={values.name}
                 variant="outlined"
               />
             </Grid>
@@ -127,11 +111,11 @@ const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                label="Country"
-                name="country"
+                label="Address"
+                name="address"
                 onChange={handleChange}
                 required
-                value={values.country}
+                value={values.address}
                 variant="outlined"
               />
             </Grid>
@@ -140,26 +124,19 @@ const AccountProfileDetails = (props) => {
               md={6}
               xs={12}
             >
+
               <TextField
+                //error={Boolean(touched.nationalId && errors.nationalId)}
                 fullWidth
-                label="Select State"
-                name="state"
+                // helperText={touched.nationalId && errors.nationalId}
+                label="CNIC No"
+                margin="normal"
+                name="nationalId"
+                //onBlur={handleBlur}
                 onChange={handleChange}
-                required
-                select
-                SelectProps={{ native: true }}
-                value={values.state}
+                value={values.nationalId}
                 variant="outlined"
-              >
-                {states.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
+              />
             </Grid>
           </Grid>
         </CardContent>
