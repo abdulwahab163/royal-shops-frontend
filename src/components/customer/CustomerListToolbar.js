@@ -13,10 +13,23 @@ import { Search as SearchIcon } from 'react-feather';
 import AddIcon from '@material-ui/icons/Add';
 
 import Dialog from './../Dialog';
-import AddProducts from './../../components/product/AddProducts';
+import AddCustomer from './AddCustomer';
+
+const defaultValue = {
+  name: '',
+  address: '',
+  nationalId: "",
+  phone: ""
+}
 
 const CustomerListToolbar = (props) => {
   const [addCustomerOpen, setAddCustomerOpen] = useState(false)
+  const [customerData, setCustomerData] = useState(defaultValue)
+
+  const handleCustomerSave = () => {
+    console.log(customerData)
+  }
+
   return (
     <Box {...props}>
       <Box
@@ -52,8 +65,8 @@ const CustomerListToolbar = (props) => {
         </Card>
       </Box>
       {/* Customer Dialog */}
-      <Dialog open={addCustomerOpen} setOpen={setAddCustomerOpen}>
-        <AddProducts />
+      <Dialog maxWidth="sm" buttonWidth='100%' open={addCustomerOpen} setOpen={setAddCustomerOpen} onSave={() => { handleCustomerSave(); setCustomerData(defaultValue); }} onCancel={() => setCustomerData(defaultValue)}>
+        <AddCustomer customerData={customerData} setCustomerData={setCustomerData} />
       </Dialog>
     </Box>
   );

@@ -10,11 +10,11 @@ import {
   Typography
 } from '@material-ui/core';
 
+import getInitials from './../../utils/getInitials';
+
 const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
   city: 'Los Angeles',
   country: 'USA',
-  jobTitle: 'Senior Developer',
   name: 'Katarina Smith',
   timezone: 'GTM-7'
 };
@@ -30,16 +30,16 @@ const AccountProfile = (props) => (
         }}
       >
         <Avatar
-          src={user.avatar}
           sx={{
             height: 100,
             width: 100
           }}
-        />
+        >{getInitials(user.name)}</Avatar>
         <Typography
           color="textPrimary"
           gutterBottom
           variant="h3"
+          style={{ marginTop: 10 }}
         >
           {user.name}
         </Typography>

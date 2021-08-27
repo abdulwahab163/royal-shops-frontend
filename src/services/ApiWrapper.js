@@ -9,6 +9,7 @@ import { authConstants } from './../redux/actionTypes/index';
 const apiWrapper = axios.create({
     baseURL: 'http://localhost:5000/api/v1/auth',
     headers: {
+        withCredentials: true,
         'Content-Type': 'application/json',
         responseType: 'json',
 
@@ -19,7 +20,7 @@ apiWrapper.interceptors.request.use(
     async (config) => {
         const token = localStorage.getItem(authConstants.AUTH_TOKEN);
         if (token) {
-            config.headers['x-access-token'] = `${token}`;
+            config.headers['x-access-token'] = `Bearer ${token}`;
         }
         return Promise.resolve(config);
     },

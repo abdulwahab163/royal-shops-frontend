@@ -5,8 +5,8 @@ export default class Category {
      * Add Category
      * @returns {Promise <T> | never>}
      */
-    addCategory = async (name) => {
-        const res = await http.post('/admin/createCategory', name);
+    addCategory = async (data) => {
+        const res = await http.post('/admin/createCategory', { name: data });
         if (res && res?.data?.success) {
             return {
                 user: res?.data?.result,

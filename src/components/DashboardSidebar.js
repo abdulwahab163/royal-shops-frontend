@@ -20,11 +20,12 @@ import {
   UserPlus as UserPlusIcon,
   Users as UsersIcon
 } from 'react-feather';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
+import getInitials from './../utils/getInitials';
 import NavItem from './NavItem';
 
 const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Developer',
   name: 'Katarina Smith'
 };
 
@@ -71,7 +72,7 @@ const authRoutes = [
   },
   {
     href: '/login',
-    icon: UserPlusIcon,
+    icon: ExitToAppIcon,
     title: 'Logout',
     isclick: "true"
   }
@@ -108,19 +109,15 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
       >
         {token && <> <Avatar
           component={RouterLink}
-          src={user.avatar}
           sx={{
             cursor: 'pointer',
             width: 64,
             height: 64
           }}
           to="/app/account"
-        />
-          <Typography color="textPrimary" variant="h5">
+        >{getInitials(user.name)}</Avatar>
+          <Typography style={{ marginTop: 10 }} color="textPrimary" variant="h5">
             {user.name}
-          </Typography>
-          <Typography color="textSecondary" variant="body2">
-            {user.jobTitle}
           </Typography>
         </>}
       </Box>
@@ -139,7 +136,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
         </List>
       </Box>
       <Box sx={{ flexGrow: 1 }} />
-    </Box>
+    </Box >
   );
 
   return (

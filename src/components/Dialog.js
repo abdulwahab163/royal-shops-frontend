@@ -35,7 +35,6 @@ export default function MaxWidthDialog({ open, setOpen, children, maxWidth, butt
             >
                 <DialogContent>
                     {children}
-
                 </DialogContent>
                 <div style={{ width: buttonWidth ? buttonWidth : '50%' }} className={classes.buttonsContainer}>
                     <Button onClick={() => { onCancel(); setOpen(false) }} text="Cancel" width="100%" bgColor="#ab7171" className={classes.cancel} />

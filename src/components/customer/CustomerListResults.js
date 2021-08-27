@@ -83,6 +83,7 @@ const CustomerListResults = ({ customers, ...rest }) => {
                 <TableCell>Address</TableCell>
                 <TableCell>Phone</TableCell>
                 <TableCell>Registration date</TableCell>
+                <TableCell>Credit</TableCell>
                 <TableCell>Delete</TableCell>
                 <TableCell>Edit</TableCell>
               </TableRow>
@@ -101,7 +102,7 @@ const CustomerListResults = ({ customers, ...rest }) => {
                         display: 'flex'
                       }}
                     >
-                      <Avatar src={customer.avatarUrl} sx={{ mr: 2 }}>
+                      <Avatar sx={{ mr: 2 }}>
                         {getInitials(customer.name)}
                       </Avatar>
                       <Typography color="textPrimary" variant="body1">
@@ -116,6 +117,9 @@ const CustomerListResults = ({ customers, ...rest }) => {
                   <TableCell>{customer.phone}</TableCell>
                   <TableCell>
                     {moment(customer.createdAt).format('DD/MM/YYYY')}
+                  </TableCell>
+                  <TableCell>
+                    {5000}
                   </TableCell>
                   <TableCell style={{ textAlign: "center" }}> <DeleteIcon style={{ cursor: "pointer" }} /></TableCell>
                   <TableCell style={{ textAlign: "center" }}><EditIcon style={{ cursor: "pointer" }} /></TableCell>
