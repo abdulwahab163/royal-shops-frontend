@@ -18,11 +18,14 @@ const ProductCard = ({ product, ...rest }) => (
     sx={{
       display: 'flex',
       flexDirection: 'column',
-      height: '100%'
+      height: '100%',
     }}
     {...rest}
   >
-    <CardContent style={{ position: 'relative' }}>
+    <CardContent style={{
+      position: 'relative',
+      paddingBottom: 0
+    }}>
       <Grid style={{ position: 'absolute', right: '17px', top: '14px' }}><Tooltip arrow title="Edit"><EditIcon color="primary" style={{ cursor: 'pointer', border: "1px solid", marginRight: 8 }} /></Tooltip>
         <Tooltip arrow title="Delete"><DeleteIcon style={{ cursor: 'pointer', border: "1px solid" }} color="secondary" /></Tooltip></Grid>
       <Box
