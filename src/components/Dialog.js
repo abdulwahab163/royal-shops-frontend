@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function MaxWidthDialog({ open, setOpen, children, maxWidth, buttonWidth }) {
+export default function MaxWidthDialog({ open, setOpen, children, maxWidth, buttonWidth, onSave, onCancel }) {
     const classes = useStyles();
     const [fullWidth, setFullWidth] = React.useState(true);
 
@@ -38,8 +38,8 @@ export default function MaxWidthDialog({ open, setOpen, children, maxWidth, butt
 
                 </DialogContent>
                 <div style={{ width: buttonWidth ? buttonWidth : '50%' }} className={classes.buttonsContainer}>
-                    <Button onClick={() => setOpen(false)} text="Cancel" width="100%" bgColor="#ab7171" className={classes.cancel} />
-                    <Button onClick={() => setOpen(false)} text="Save" width="100%" className={classes.cancel} />
+                    <Button onClick={() => { onCancel(); setOpen(false) }} text="Cancel" width="100%" bgColor="#ab7171" className={classes.cancel} />
+                    <Button onClick={() => { onSave(); setOpen(false) }} text="Save" width="100%" className={classes.cancel} />
                 </div>
 
             </Dialog>

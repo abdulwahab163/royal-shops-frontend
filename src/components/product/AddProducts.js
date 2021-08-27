@@ -21,29 +21,29 @@ const AddProducts = () => {
 
         <div className="col-lg-6">
           <form>
-            <div class="form-group">
-              <label for="inputAddress">Name</label>
-              <input type="text" class="form-control" id="inputAddress" placeholder="Enter Product Name" />
+            <div className="form-group">
+              <label htmlFor="inputAddress">Name</label>
+              <input type="text" className="form-control" id="inputAddress" placeholder="Enter Product Name" />
             </div>
-            <div class="form-row">
-              <div class="form-group col-md-12">
-                <label for="inputState">Category</label>
-                <select id="inputState" class="form-control">
+            <div className="form-row">
+              <div className="form-group col-md-12">
+                <label htmlFor="inputState">Category</label>
+                <select id="inputState" className="form-control">
                   <option selected>Choose...</option>
                   <option>...</option>
                 </select>
               </div>
-              <div class="form-group col-md-12">
-                <label for="inputZip">Total Stock</label>
-                <input type="text" class="form-control" id="inputZip" style={{ width: '50%' }} />
+              <div className="form-group col-md-12">
+                <label htmlFor="inputZip">Total Stock</label>
+                <input type="text" className="form-control" id="inputZip" style={{ width: '50%' }} />
               </div>
-              <div class="form-group col-md-6">
-                <label for="inputZip">Retail Price</label>
-                <input type="text" class="form-control" id="inputZip" />
+              <div className="form-group col-md-6">
+                <label htmlFor="inputZip">Retail Price</label>
+                <input type="text" className="form-control" id="inputZip" />
               </div>
-              <div class="form-group col-md-6">
-                <label for="inputZip">Sale Price</label>
-                <input type="text" class="form-control" id="inputZip" />
+              <div className="form-group col-md-6">
+                <label htmlFor="inputZip">Sale Price</label>
+                <input type="text" className="form-control" id="inputZip" />
               </div>
             </div>
           </form>
