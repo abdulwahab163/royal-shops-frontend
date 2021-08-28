@@ -75,6 +75,7 @@ const categoryReducer = (state = initialState, action) => {
             };
         }
         case categoryConstants.ADD_CATEGORY_SUCCESS: {
+            toastMessage("Category Added", success)
             return {
                 ...state,
                 loading: false,
@@ -97,6 +98,7 @@ const categoryReducer = (state = initialState, action) => {
             };
         }
         case categoryConstants.UPDATE_CATEGORY_SUCCESS: {
+            toastMessage("Category Updated", success)
             return {
                 ...state,
                 loading: false,
@@ -119,6 +121,7 @@ const categoryReducer = (state = initialState, action) => {
             };
         }
         case categoryConstants.DELETE_CATEGORY_SUCCESS: {
+            toastMessage("Category Deleted", success)
             return {
                 ...state,
                 loading: false,

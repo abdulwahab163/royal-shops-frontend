@@ -33,8 +33,6 @@ const App = () => {
         newestOnTop={true}
         closeOnClick
         rtl={false}
-        pauseOnFocusLoss
-        draggable
       />
       <GlobalStyles />
       {routing}

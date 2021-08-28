@@ -99,7 +99,7 @@ const authReducer = (state = initialState, action) => {
 			return {
 				...state,
 				user: payload.userInfo,
-				isAuthenticated: payload.token && payload.token,
+				isAuthenticated: false,
 				error: null
 			};
 		}

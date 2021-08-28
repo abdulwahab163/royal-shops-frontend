@@ -20,7 +20,7 @@ apiWrapper.interceptors.request.use(
     async (config) => {
         const token = localStorage.getItem(authConstants.AUTH_TOKEN);
         if (token) {
-            config.headers['x-access-token'] = `Bearer ${token}`;
+            config.headers['Authorization'] = "Bearer " + token;
         }
         return Promise.resolve(config);
     },

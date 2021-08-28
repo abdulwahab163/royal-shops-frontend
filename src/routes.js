@@ -15,19 +15,19 @@ import Register from 'src/pages/Register';
 import Settings from 'src/pages/Settings';
 
 function routing() {
-  const token = useSelector(state => state.auth.user)
+  const user = useSelector(state => state.auth.user)
 
   const routes = [
     {
       path: 'app',
-      element: token ? <DashboardLayout /> : <MainLayout />,
+      element: user ? <DashboardLayout /> : <MainLayout />,
       children: [
-        { path: 'account', element: token ? <Account /> : <Login /> },
-        { path: 'customers', element: token ? <CustomerList /> : <Login /> },
-        { path: 'dashboard', element: token ? <Dashboard /> : < Login /> },
-        { path: 'orders', element: token ? <Orders /> : <Login /> },
-        { path: 'products', element: token ? <ProductList /> : <Login /> },
-        { path: 'settings', element: token ? <Settings /> : <Login /> },
+        { path: 'account', element: user ? <Account /> : <Login /> },
+        { path: 'customers', element: user ? <CustomerList /> : <Login /> },
+        { path: 'dashboard', element: user ? <Dashboard /> : < Login /> },
+        { path: 'orders', element: user ? <Orders /> : <Login /> },
+        { path: 'products', element: user ? <ProductList /> : <Login /> },
+        { path: 'settings', element: user ? <Settings /> : <Login /> },
         { path: '*', element: <Navigate to="/404" /> }
       ]
     },

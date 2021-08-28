@@ -42,7 +42,7 @@ export const signIn = (loginData) => async (disptach) => {
 		if (res.success) {
 			localStorage.setItem(
 				authConstants.AUTH_TOKEN,
-				JSON.stringify(res?.user?.tokenInfo)
+				res?.user?.tokenInfo
 			);
 			localStorage.setItem(
 				authConstants.USER,
