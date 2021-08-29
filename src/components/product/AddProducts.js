@@ -44,7 +44,7 @@ const AddProducts = ({ productData, setProductData }) => {
               <div className="form-group col-md-12">
                 <label htmlFor="CategoryId">Category</label>
                 <select value={categories && productData.CategoryId ? categories.find(item => item.id === productData.CategoryId) : categories && categories.length > 0 ? categories[0] : "choose"}
-
+                  onChange={(e) => handleChange(e)}
                   id="CategoryId" className="form-control">
                   {categories.map(cat => (<option key={cat.id} id="CategoryId" value={cat.id} >{cat.name}</option>))}
 

@@ -6,23 +6,26 @@ export default class Product {
      * @returns {Promise <T> | never>}
      */
     addProduct = async (product) => {
-        const res = await http.post('/admin/createProduct', {
-            name: product.name,
-            CategoryId: product.CategoryId,
-            retailPrice: product.retailPrice,
-            salePrice: product.salePrice,
-            stock: product.stock
-        });
-        if (res && res?.data?.success) {
-            return {
-                data: res?.data?.addProduct,
-                success: true,
-            };
-        } else {
+
+        try {
+            const res = await http.post('/admin/createProduct', {
+                name: product.name,
+                CategoryId: product.CategoryId,
+                retailPrice: product.retailPrice,
+                salePrice: product.salePrice,
+                stock: product.stock
+            });
+            if (res && res?.data?.success) {
+                return {
+                    data: res?.data?.addProduct,
+                    success: true,
+                };
+            }
+
+        } catch (error) {
             return {
                 success: false,
-                status: res?.data?.status,
-                message: res?.data?.msg,
+                message: error.message,
             };
         }
 

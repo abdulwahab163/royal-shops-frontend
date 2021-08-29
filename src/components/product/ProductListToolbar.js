@@ -49,11 +49,6 @@ const ProductListToolbar = (props) => {
   }
 
   const handleProductSave = () => {
-    // const parsedId = parseInt(productData.CategoryId)
-    // setProductData({
-    //   ...productData,
-    //   CategoryId: parsedId
-    // })
     console.log("dsdf", productData)
     dispatch(addProduct(productData))
   }

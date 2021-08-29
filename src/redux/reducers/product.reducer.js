@@ -78,7 +78,7 @@ const productReducer = (state = initialState, action) => {
             };
         }
         case productConstants.ADD_PRODUCT_SUCCESS: {
-            toastMessage("Product Added", success)
+            toastMessage("Product Added", "success")
             return {
                 ...state,
                 singleProduct: payload,

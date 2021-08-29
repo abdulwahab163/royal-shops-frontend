@@ -32,25 +32,19 @@ export const addProduct = (productData) => async (disptach) => {
 
     disptach({ type: productConstants.ADD_PRODUCT_REQUEST });
 
-    try {
-        const res = await product.addProduct(productData);
-        if (res?.success) {
-            disptach({
-                type: productConstants.ADD_PRODUCT_SUCCESS,
-                payload: res?.data,
-            });
-        } else {
-            disptach({
-                type: productConstants.ADD_PRODUCT_FAIL,
-                payload: res.message,
-            });
-        }
-    } catch (e) {
+    const res = await product.addProduct(productData);
+    if (res?.success) {
+        disptach({
+            type: productConstants.ADD_PRODUCT_SUCCESS,
+            payload: res?.data,
+        });
+    } else {
         disptach({
             type: productConstants.ADD_PRODUCT_FAIL,
-            payload: "res.message",
+            payload: res.message,
         });
     }
+
 };
 
 export const getProduct = (id) => async (disptach) => {
