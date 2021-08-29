@@ -12,13 +12,12 @@ import { Search as SearchIcon } from 'react-feather';
 import AddIcon from '@material-ui/icons/Add';
 import CategoryIcon from '@material-ui/icons/Category';
 import { makeStyles } from '@material-ui/core/styles';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import Dialog from './../Dialog';
 import AddProducts from './AddProducts';
 import AddCategory from './AddCategory';
 import { addCategory } from './../../redux/actions/category.actions'
-import { addProduct } from './../../redux/actions/product.actions';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -27,13 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const defaultProductData = {
-  name: '',
-  CategoryId: 1,
-  retailPrice: 0,
-  salePrice: 0,
-  stock: 0
-}
+
 
 const ProductListToolbar = (props) => {
   const classes = useStyles();
@@ -42,15 +35,9 @@ const ProductListToolbar = (props) => {
   const [addProductOpen, setAddProductOpen] = useState(false)
   const [addCategoryOpen, setAddCategoryOpen] = useState(false)
   const [categoryName, setCategoryName] = useState('')
-  const [productData, setProductData] = useState(defaultProductData)
 
   const handleCategorySave = () => {
     dispatch(addCategory(categoryName))
-  }
-
-  const handleProductSave = () => {
-    console.log("dsdf", productData)
-    dispatch(addProduct(productData))
   }
 
   return (<Box {...props}>
@@ -90,9 +77,9 @@ const ProductListToolbar = (props) => {
       </Card>
     </Box>
     {/* Product Dialog */}
-    <Dialog open={addProductOpen} setOpen={setAddProductOpen} onSave={() => { handleProductSave(); setProductData(defaultProductData); }} onCancel={() => setProductData(defaultProductData)}>
-      <AddProducts productData={productData} setProductData={setProductData} />
-    </Dialog>
+
+    <AddProducts open={addProductOpen} setOpen={setAddProductOpen} />
+
     {/* Category Dialog */}
     <Dialog maxWidth={'sm'} buttonWidth={"100%"} open={addCategoryOpen} setOpen={setAddCategoryOpen} onSave={() => { handleCategorySave(); setCategoryName(''); }} onCancel={() => setCategoryName('')}>
       <AddCategory categoryName={categoryName} setCategoryName={setCategoryName} />

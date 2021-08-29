@@ -35,10 +35,10 @@ export default class Product {
          * @returns {Promise <T> | never>}
          */
     getAllProducts = async () => {
-        const res = await http.get('/getAllCategories');
+        const res = await http.get('admin/getAllProducts');
         if (res && res?.data?.success) {
             return {
-                user: res?.data?.result,
+                data: res?.data?.result?.rows,
                 success: true,
             };
         } else {

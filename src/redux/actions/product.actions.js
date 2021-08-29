@@ -7,23 +7,16 @@ export const getAllProducts = () => async (disptach) => {
 
     disptach({ type: productConstants.GET_ALL_PRODUCTS_REQUEST });
 
-    try {
-        const res = await product.getAllProducts();
-        if (res?.success) {
-            disptach({
-                type: productConstants.GET_ALL_PRODUCTS_SUCCESS,
-                payload: res?.user?.data,
-            });
-        } else {
-            disptach({
-                type: productConstants.GET_ALL_PRODUCTS_FAIL,
-                payload: res.message,
-            });
-        }
-    } catch (e) {
+    const res = await product.getAllProducts();
+    if (res?.success) {
+        disptach({
+            type: productConstants.GET_ALL_PRODUCTS_SUCCESS,
+            payload: res?.data,
+        });
+    } else {
         disptach({
             type: productConstants.GET_ALL_PRODUCTS_FAIL,
-            payload: "Something Went Wrong",
+            payload: res.message,
         });
     }
 };

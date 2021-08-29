@@ -1,11 +1,32 @@
+import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet';
 import { Box, Container, Grid, Pagination } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+
 import ProductListToolbar from 'src/components/product/ProductListToolbar';
 import ProductCard from 'src/components/product//ProductCard';
 import products from 'src/__mocks__/products';
+import { getAllProducts } from './../redux/actions/product.actions'
 
-const ProductList = () => (
-  <>
+const ProductList = () => {
+  const dispatch = useDispatch()
+
+  const products = useSelector(state => state.product.productList)
+
+
+  useEffect(() => {
+    dispatch(getAllProducts())
+
+  }, [])
+
+  console.log("object", products)
+
+  if (!products) {
+    return <h3>No Products Added Yet</h3>
+  }
+
+  return (<>
+
     <Helmet>
       <title>Products</title>
     </Helmet>
@@ -20,9 +41,9 @@ const ProductList = () => (
         <ProductListToolbar />
         <Box sx={{ pt: 3 }}>
           <Grid container spacing={3}>
-            {products.map((product) => (
+            {products && products.map((product) => (
               <Grid item key={product.id} lg={4} md={6} xs={12}>
-                <ProductCard product={product} />
+                <ProductCard name={product.name} category={product.category.name} stock={product.stock} salePrice={product.salePrice} retailPrice={product.retailPrice} />
               </Grid>
             ))}
           </Grid>
@@ -38,7 +59,7 @@ const ProductList = () => (
         </Box>
       </Container>
     </Box>
-  </>
-);
+  </>)
+};
 
 export default ProductList;

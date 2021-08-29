@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import {
   Avatar,
   Box,
@@ -13,7 +12,7 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
-const ProductCard = ({ product, ...rest }) => (
+const ProductCard = ({ name, category, stock, salePrice, retailPrice, ...rest }) => (
   <Card
     sx={{
       display: 'flex',
@@ -38,7 +37,7 @@ const ProductCard = ({ product, ...rest }) => (
         <Avatar style={{
           width: 220,
           height: 170
-        }} alt="Product" src={product.media} variant="square" />
+        }} alt="Product" src="https://www.google.com/search?q=images&rlz=1C1OKWM_enPK963PK963&tbm=isch&source=iu&ictx=1&fir=beTkmkzbIFbk8M%252CPqwxwTsaoO2VmM%252C_&vet=1&usg=AI4_-kTlMcC-xycClKn3V9CI6OYd6BgrIw&sa=X&ved=2ahUKEwj8w8Skh9fyAhVAAWMBHamLDFUQ9QF6BAgOEAE#imgrc=beTkmkzbIFbk8M" variant="square" />
       </Box>
       <Grid container justifyContent="space-around">
         <Grid item>
@@ -46,25 +45,25 @@ const ProductCard = ({ product, ...rest }) => (
             Name:<span style={{
               marginLeft: 26,
               fontWeight: "bold"
-            }}>{product.title}</span>
+            }}>{name}</span>
           </Typography>
           <Typography color="textPrimary" gutterBottom variant="subtitle1">
             Category: <span style={{
               fontWeight: "bold"
-            }}>{product.category}</span>
+            }}>{category}</span>
           </Typography>
         </Grid>
         <Grid item>
           <Typography color="textPrimary" gutterBottom variant="subtitle1">
             Stock: <span style={{
               fontWeight: "bold"
-            }}>{product.stock}</span>
+            }}>{stock}</span>
           </Typography>
           <Typography color="textPrimary" gutterBottom variant="subtitle1">
-            Size: <span style={{
+            Sale Price: <span style={{
               marginLeft: 10,
               fontWeight: "bold"
-            }}>{product.size}</span>
+            }}>{salePrice}</span>
           </Typography>
         </Grid>
       </Grid>
@@ -74,8 +73,5 @@ const ProductCard = ({ product, ...rest }) => (
   </Card >
 );
 
-ProductCard.propTypes = {
-  product: PropTypes.object.isRequired
-};
 
 export default ProductCard;
