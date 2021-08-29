@@ -12,7 +12,7 @@ export const getAllCategories = () => async (disptach) => {
         if (res?.success) {
             disptach({
                 type: categoryConstants.GET_ALL_CATEGORIES_SUCCESS,
-                payload: res?.user?.data,
+                payload: res?.data,
             });
         } else {
             disptach({
@@ -21,9 +21,10 @@ export const getAllCategories = () => async (disptach) => {
             });
         }
     } catch (e) {
+        console.log("catch", e)
         disptach({
             type: categoryConstants.GET_ALL_CATEGORIES_FAIL,
-            payload: "Something Went Wrong",
+            payload: res.message,
         });
     }
 };

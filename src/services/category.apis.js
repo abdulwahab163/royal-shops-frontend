@@ -26,10 +26,10 @@ export default class Category {
          * @returns {Promise <T> | never>}
          */
     getAllCategories = async () => {
-        const res = await http.get('/getAllCategories');
+        const res = await http.get('/admin/getAllCategories');
         if (res && res?.data?.success) {
             return {
-                user: res?.data?.result,
+                data: res?.data?.result?.rows,
                 success: true,
             };
         } else {

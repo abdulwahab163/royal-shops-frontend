@@ -28,16 +28,16 @@ export const getAllProducts = () => async (disptach) => {
     }
 };
 
-export const addProduct = (product) => async (disptach) => {
+export const addProduct = (productData) => async (disptach) => {
 
     disptach({ type: productConstants.ADD_PRODUCT_REQUEST });
 
     try {
-        const res = await product.addProduct(product);
+        const res = await product.addProduct(productData);
         if (res?.success) {
             disptach({
                 type: productConstants.ADD_PRODUCT_SUCCESS,
-                payload: res?.user?.data,
+                payload: res?.data,
             });
         } else {
             disptach({
@@ -48,7 +48,7 @@ export const addProduct = (product) => async (disptach) => {
     } catch (e) {
         disptach({
             type: productConstants.ADD_PRODUCT_FAIL,
-            payload: "Something Went Wrong",
+            payload: "res.message",
         });
     }
 };
@@ -101,29 +101,29 @@ export const updateProduct = (id, product) => async (disptach) => {
             payload: "Something Went Wrong",
         });
     }
+}
+export const deleteProduct = (id) => async (disptach) => {
 
-    export const deleteProduct = (id) => async (disptach) => {
+    disptach({ type: productConstants.UPDATE_PRODUCT_REQUEST });
 
-        disptach({ type: productConstants.UPDATE_PRODUCT_REQUEST });
-
-        try {
-            const res = await product.deleteProduct(id);
-            if (res?.success) {
-                disptach({
-                    type: productConstants.UPDATE_PRODUCT_SUCCESS,
-                    payload: res?.user?.data,
-                });
-            } else {
-                disptach({
-                    type: productConstants.UPDATE_PRODUCT_FAIL,
-                    payload: res.message,
-                });
-            }
-        } catch (e) {
+    try {
+        const res = await product.deleteProduct(id);
+        if (res?.success) {
+            disptach({
+                type: productConstants.UPDATE_PRODUCT_SUCCESS,
+                payload: res?.user?.data,
+            });
+        } else {
             disptach({
                 type: productConstants.UPDATE_PRODUCT_FAIL,
-                payload: "Something Went Wrong",
+                payload: res.message,
             });
         }
-    };
-}
+    } catch (e) {
+        disptach({
+            type: productConstants.UPDATE_PRODUCT_FAIL,
+            payload: "Something Went Wrong",
+        });
+    }
+};
+

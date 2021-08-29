@@ -18,6 +18,7 @@ import Dialog from './../Dialog';
 import AddProducts from './AddProducts';
 import AddCategory from './AddCategory';
 import { addCategory } from './../../redux/actions/category.actions'
+import { addProduct } from './../../redux/actions/product.actions';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -26,6 +27,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const defaultProductData = {
+  name: '',
+  CategoryId: 1,
+  retailPrice: 0,
+  salePrice: 0,
+  stock: 0
+}
+
 const ProductListToolbar = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch()
@@ -33,13 +42,21 @@ const ProductListToolbar = (props) => {
   const [addProductOpen, setAddProductOpen] = useState(false)
   const [addCategoryOpen, setAddCategoryOpen] = useState(false)
   const [categoryName, setCategoryName] = useState('')
+  const [productData, setProductData] = useState(defaultProductData)
 
   const handleCategorySave = () => {
     dispatch(addCategory(categoryName))
-
   }
 
-
+  const handleProductSave = () => {
+    // const parsedId = parseInt(productData.CategoryId)
+    // setProductData({
+    //   ...productData,
+    //   CategoryId: parsedId
+    // })
+    console.log("dsdf", productData)
+    dispatch(addProduct(productData))
+  }
 
   return (<Box {...props}>
     <Box
@@ -78,8 +95,8 @@ const ProductListToolbar = (props) => {
       </Card>
     </Box>
     {/* Product Dialog */}
-    <Dialog open={addProductOpen} setOpen={setAddProductOpen}>
-      <AddProducts />
+    <Dialog open={addProductOpen} setOpen={setAddProductOpen} onSave={() => { handleProductSave(); setProductData(defaultProductData); }} onCancel={() => setProductData(defaultProductData)}>
+      <AddProducts productData={productData} setProductData={setProductData} />
     </Dialog>
     {/* Category Dialog */}
     <Dialog maxWidth={'sm'} buttonWidth={"100%"} open={addCategoryOpen} setOpen={setAddCategoryOpen} onSave={() => { handleCategorySave(); setCategoryName(''); }} onCancel={() => setCategoryName('')}>

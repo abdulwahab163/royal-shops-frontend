@@ -1,18 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Image from '../../assets/download.png'
 import Button from './../Button'
+import { getAllCategories } from './../../redux/actions/category.actions'
 
 const useStyles = makeStyles((theme) => ({
   headerContainer: {
     textAlign: 'center'
   },
-
 }));
 
-const AddProducts = () => {
+const AddProducts = ({ productData, setProductData }) => {
   const classes = useStyles();
+  const dispatch = useDispatch()
+
+  const categories = useSelector(state => state.category.categoryList)
+
+  useEffect(() => {
+    dispatch(getAllCategories())
+  }, [])
+
+  const handleChange = (e) => {
+    setProductData({
+      ...productData,
+      [e.target.id]: e.target.value
+    })
+  }
 
   return (
     <>
@@ -22,28 +37,30 @@ const AddProducts = () => {
         <div className="col-lg-6">
           <form>
             <div className="form-group">
-              <label htmlFor="inputAddress">Name</label>
-              <input type="text" className="form-control" id="inputAddress" placeholder="Enter Product Name" />
+              <label htmlFor="name">Name</label>
+              <input value={productData.name} onChange={(e) => handleChange(e)} type="text" className="form-control" id="name" placeholder="Enter Product Name" />
             </div>
             <div className="form-row">
               <div className="form-group col-md-12">
-                <label htmlFor="inputState">Category</label>
-                <select id="inputState" className="form-control">
-                  <option selected>Choose...</option>
-                  <option>...</option>
+                <label htmlFor="CategoryId">Category</label>
+                <select value={categories && productData.CategoryId ? categories.find(item => item.id === productData.CategoryId) : categories && categories.length > 0 ? categories[0] : "choose"}
+
+                  id="CategoryId" className="form-control">
+                  {categories.map(cat => (<option key={cat.id} id="CategoryId" value={cat.id} >{cat.name}</option>))}
+
                 </select>
               </div>
               <div className="form-group col-md-12">
-                <label htmlFor="inputZip">Total Stock</label>
-                <input type="text" className="form-control" id="inputZip" style={{ width: '50%' }} />
+                <label htmlFor="stock">Total Stock</label>
+                <input value={productData.stock} onChange={(e) => handleChange(e)} type="number" className="form-control" id="stock" style={{ width: '50%' }} />
               </div>
               <div className="form-group col-md-6">
-                <label htmlFor="inputZip">Retail Price</label>
-                <input type="text" className="form-control" id="inputZip" />
+                <label htmlFor="retailPrice">Retail Price</label>
+                <input value={productData.retailPrice} onChange={(e) => handleChange(e)} type="number" className="form-control" id="retailPrice" />
               </div>
               <div className="form-group col-md-6">
-                <label htmlFor="inputZip">Sale Price</label>
-                <input type="text" className="form-control" id="inputZip" />
+                <label htmlFor="salePrice">Sale Price</label>
+                <input value={productData.salePrice} onChange={(e) => handleChange(e)} type="number" className="form-control" id="salePrice" />
               </div>
             </div>
           </form>
