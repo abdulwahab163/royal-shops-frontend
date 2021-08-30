@@ -4,8 +4,7 @@ import { Box, Container, Grid, Pagination } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ProductListToolbar from 'src/components/product/ProductListToolbar';
-import ProductCard from 'src/components/product//ProductCard';
-import products from 'src/__mocks__/products';
+import ProductCard from 'src/components/product/ProductCard';
 import { getAllProducts } from './../redux/actions/product.actions'
 
 const ProductList = () => {
@@ -19,7 +18,6 @@ const ProductList = () => {
 
   }, [])
 
-  console.log("object", products)
 
   if (!products) {
     return <h3>No Products Added Yet</h3>

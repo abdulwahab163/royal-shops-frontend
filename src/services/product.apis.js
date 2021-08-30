@@ -2,7 +2,7 @@ import http from './apiWrapper';
 
 export default class Product {
     /**
-     * Add Category
+     * Add Single Product
      * @returns {Promise <T> | never>}
      */
     addProduct = async (product) => {
@@ -31,7 +31,7 @@ export default class Product {
 
     };
     /**
-         * Get all Categories
+         * Get All Products
          * @returns {Promise <T> | never>}
          */
     getAllProducts = async () => {
@@ -52,14 +52,14 @@ export default class Product {
     };
 
     /**
-      * Get Single Category
+      * Get Single Product
       * @returns {Promise <T> | never>}
       */
     getProduct = async (id) => {
-        const res = await http.get(`/getCategoryBy/:${id}`);
+        const res = await http.get(`admin/getProductBy/:${id}`);
         if (res && res?.data?.success) {
             return {
-                user: res?.data?.result,
+                data: res?.data?.result,
                 success: true,
             };
         } else {
@@ -72,14 +72,14 @@ export default class Product {
 
     };
     /**
-      * Update Single Category
+      * Update Single Product
       * @returns {Promise <T> | never>}
       */
     updateProduct = async (id, name) => {
-        const res = await http.put(`/updateCategory/:${id}`, name);
+        const res = await http.put(`admin/updateProduct/:${id}`, name);
         if (res && res?.data?.success) {
             return {
-                user: res?.data?.result,
+                data: res?.data?.result,
                 success: true,
             };
         } else {
@@ -91,14 +91,21 @@ export default class Product {
         }
 
     };
+    /**
+          * Delete Single Product
+          * @returns {Promise <T> | never>}
+          */
+
     deleteProduct = async (id) => {
-        const res = await http.delete(`/updateCategory/:${id}`);
-        if (res && res?.data?.success) {
-            return {
-                user: res?.data?.result,
-                success: true,
-            };
-        } else {
+        try {
+            const res = await http.delete(`admin/deleteProduct/:${id}`);
+            if (res && res?.data?.success) {
+                return {
+                    data: res?.data?.result,
+                    success: true,
+                };
+            }
+        } catch (e) {
             return {
                 success: false,
                 status: res?.data?.status,

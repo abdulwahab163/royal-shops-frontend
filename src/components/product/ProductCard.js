@@ -44,7 +44,12 @@ const ProductCard = ({ name, category, stock, salePrice, retailPrice, ...rest })
           <Typography color="textPrimary" gutterBottom variant="subtitle1">
             Name:<span style={{
               marginLeft: 26,
-              fontWeight: "bold"
+              fontWeight: "bold",
+              display: "inlineBlock",
+              width: 200,
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
             }}>{name}</span>
           </Typography>
           <Typography color="textPrimary" gutterBottom variant="subtitle1">
@@ -56,12 +61,11 @@ const ProductCard = ({ name, category, stock, salePrice, retailPrice, ...rest })
         <Grid item>
           <Typography color="textPrimary" gutterBottom variant="subtitle1">
             Stock: <span style={{
-              fontWeight: "bold"
+              marginLeft: 10, fontWeight: "bold"
             }}>{stock}</span>
           </Typography>
           <Typography color="textPrimary" gutterBottom variant="subtitle1">
             Sale Price: <span style={{
-              marginLeft: 10,
               fontWeight: "bold"
             }}>{salePrice}</span>
           </Typography>

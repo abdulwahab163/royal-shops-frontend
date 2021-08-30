@@ -91,25 +91,18 @@ export const updateProduct = (id, product) => async (disptach) => {
 }
 export const deleteProduct = (id) => async (disptach) => {
 
-    disptach({ type: productConstants.UPDATE_PRODUCT_REQUEST });
+    disptach({ type: productConstants.DELETE_PRODUCT_REQUEST });
 
-    try {
-        const res = await product.deleteProduct(id);
-        if (res?.success) {
-            disptach({
-                type: productConstants.UPDATE_PRODUCT_SUCCESS,
-                payload: res?.user?.data,
-            });
-        } else {
-            disptach({
-                type: productConstants.UPDATE_PRODUCT_FAIL,
-                payload: res.message,
-            });
-        }
-    } catch (e) {
+    const res = await product.deleteProduct(id);
+    if (res?.success) {
         disptach({
-            type: productConstants.UPDATE_PRODUCT_FAIL,
-            payload: "Something Went Wrong",
+            type: productConstants.DELETE_PRODUCT_SUCCESS,
+            payload: res?.data,
+        });
+    } else {
+        disptach({
+            type: productConstants.DELETE_PRODUCT_FAIL,
+            payload: res.message,
         });
     }
 };

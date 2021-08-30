@@ -16,7 +16,6 @@ const productReducer = (state = initialState, action) => {
         case productConstants.GET_ALL_PRODUCTS_REQUEST: {
             return {
                 ...state,
-                singleProduct: '',
                 productList: [],
                 loading: true,
                 error: null
@@ -25,7 +24,6 @@ const productReducer = (state = initialState, action) => {
         case productConstants.GET_ALL_PRODUCTS_SUCCESS: {
             return {
                 ...state,
-                singleProduct: '',
                 productList: payload,
                 loading: false,
                 error: null
@@ -34,7 +32,6 @@ const productReducer = (state = initialState, action) => {
         case productConstants.GET_ALL_PRODUCTS_FAIL: {
             return {
                 ...state,
-                singleProduct: '',
                 productList: [],
                 loading: false,
                 error: payload
@@ -44,7 +41,6 @@ const productReducer = (state = initialState, action) => {
             return {
                 ...state,
                 singleProduct: '',
-                productList: [],
                 loading: false,
                 error: null
             };
@@ -53,7 +49,6 @@ const productReducer = (state = initialState, action) => {
             return {
                 ...state,
                 singleProduct: payload,
-                productList: [],
                 loading: false,
                 error: null
             };
@@ -62,7 +57,6 @@ const productReducer = (state = initialState, action) => {
             return {
                 ...state,
                 singleProduct: '',
-                productList: [],
                 loading: false,
                 error: payload,
             };
@@ -71,7 +65,6 @@ const productReducer = (state = initialState, action) => {
             return {
                 ...state,
                 singleProduct: '',
-                productList: [],
                 loading: true,
                 error: null,
 
@@ -82,7 +75,7 @@ const productReducer = (state = initialState, action) => {
             return {
                 ...state,
                 singleProduct: payload,
-                productList: [],
+                productList: [...state.productList, payload],
                 loading: false,
                 error: null
             };
@@ -92,7 +85,6 @@ const productReducer = (state = initialState, action) => {
             return {
                 ...state,
                 singleProduct: '',
-                productList: [],
                 loading: false,
                 error: payload
             };
@@ -101,7 +93,6 @@ const productReducer = (state = initialState, action) => {
             return {
                 ...state,
                 singleProduct: '',
-                productList: [],
                 loading: true,
                 error: null
             };
@@ -111,7 +102,6 @@ const productReducer = (state = initialState, action) => {
             return {
                 ...state,
                 singleProduct: payload,
-                productList: [],
                 loading: false,
                 error: null
             };
@@ -121,7 +111,6 @@ const productReducer = (state = initialState, action) => {
             return {
                 ...state,
                 singleProduct: '',
-                productList: [],
                 loading: false,
                 error: payload
             };
@@ -129,8 +118,6 @@ const productReducer = (state = initialState, action) => {
         case productConstants.DELETE_PRODUCT_REQUEST: {
             return {
                 ...state,
-                singleProduct: payload,
-                productList: [],
                 loading: false,
                 error: null
             };
@@ -139,8 +126,7 @@ const productReducer = (state = initialState, action) => {
             toastMessage("Product Deleted", success)
             return {
                 ...state,
-                singleProduct: payload,
-                productList: [],
+                productList: state.productList.filter(product => product.id !== payload.id),
                 loading: false,
                 error: null
             };
@@ -150,7 +136,6 @@ const productReducer = (state = initialState, action) => {
             return {
                 ...state,
                 singleProduct: payload,
-                productList: [],
                 loading: false,
                 error: null
             };

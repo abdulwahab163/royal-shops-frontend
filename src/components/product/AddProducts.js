@@ -28,9 +28,18 @@ const useStyles = makeStyles((theme) => ({
 
 const defaultProductData = {
   name: '',
+  CategoryId: -1,
   retailPrice: 0,
   salePrice: 0,
   stock: 0
+}
+
+let defaultProductError = {
+  name: false,
+  categoryId: false,
+  retailPrice: false,
+  salePrice: false,
+  stock: false
 }
 
 const AddProducts = ({ open, setOpen, maxWidth, buttonWidth }) => {
@@ -40,12 +49,7 @@ const AddProducts = ({ open, setOpen, maxWidth, buttonWidth }) => {
 
   const [productData, setProductData] = useState(defaultProductData)
 
-  const [nameError, setNameError] = useState('')
-  const [categoryIdError, setCategoryIdError] = useState('')
-  const [retailPriceError, setRetailPriceError] = useState('')
-  const [salePriceError, setSalePriceError] = useState('')
-  const [stockError, setStockError] = useState('')
-
+  const [productError, setProductError] = useState(defaultProductError)
   const categories = useSelector(state => state.category.categoryList)
 
   useEffect(() => {
@@ -53,6 +57,7 @@ const AddProducts = ({ open, setOpen, maxWidth, buttonWidth }) => {
   }, [])
 
   const handleChange = (e) => {
+    setProductError(defaultProductError)
     setProductData({
       ...productData,
       [e.target.id]: e.target.value
@@ -61,33 +66,37 @@ const AddProducts = ({ open, setOpen, maxWidth, buttonWidth }) => {
   }
 
   const handleValidate = () => {
+    let errorObj = {}
     if (productData.name.length < 2) {
-      setNameError("name must be greater than 2 Characters")
+      errorObj.name = "name must be greater than 2 Characters"
     }
     if (!productData.stock > 0) {
-      setStockError("stock must be greater then 0")
+      errorObj.stock = "invalid stock"
     }
     if (!productData.retailPrice > 0) {
-      setRetailPriceError("retail price must be greater then 0")
+      errorObj.retailPrice = "invalid retail price"
 
     }
     if (!productData.salePrice > 0) {
-      setSalePriceError("sale price must be greater then 0")
+      errorObj.salePrice = "invalid sale price"
     }
-    if (!parseInt(productData.CategoryId) > 0) {
-      setCategoryIdError("select category")
+    if (parseInt(productData.CategoryId) < 0) {
+      console.log(!parseInt(productData.CategoryId) > 0, "here")
+      errorObj.categoryId = "select category"
     }
 
+    return errorObj
   }
 
 
   const handleSave = () => {
-    if (!nameError || !categoryIdError || !salePriceError || !retailPriceError || !stockError) {
-      //dispatch(addProduct(productData))
+    const errorObj = handleValidate()
+    setProductError(errorObj)
+    if (!errorObj.name && !errorObj.CategoryId && !errorObj.retailPrice && !errorObj.salePrice && !errorObj.stock) {
+      dispatch(addProduct(productData))
       setProductData(defaultProductData)
       setOpen(false)
     }
-    console.log("dsdf", productData)
   }
 
   return (
@@ -107,37 +116,37 @@ const AddProducts = ({ open, setOpen, maxWidth, buttonWidth }) => {
               <form>
                 <div className="form-group">
                   <label htmlFor="name">Name</label>
-                  <input onBlur={handleValidate} value={productData.name} onChange={(e) => handleChange(e)} type="text" className="form-control" id="name" placeholder="Enter Product Name" />
-                  {nameError && <div style={{ color: 'red' }}>{nameError}</div>}
+                  <input value={productData.name} onChange={(e) => handleChange(e)} type="text" className="form-control" id="name" placeholder="Enter Product Name" />
+                  {productError.name && <div style={{ color: 'red' }}>{productError.name}</div>}
                 </div>
                 <div className="form-row">
                   <div className="form-group col-md-12">
                     <label htmlFor="CategoryId">Category</label>
                     <select
-                      onBlur={handleValidate}
+
                       onChange={(e) => handleChange(e)}
                       id="CategoryId" className="form-control">
                       <option selected disabled>choose</option>
                       {categories.map(cat => (<option key={cat.id} id="CategoryId" value={cat.id} >{cat.name}</option>))}
                     </select>
-                    {categoryIdError && <div style={{ color: 'red' }}>{categoryIdError}</div>}
+                    {productError.categoryId && <div style={{ color: 'red' }}>{productError.categoryId}</div>}
                   </div>
                   <div className="form-group col-md-12">
                     <label htmlFor="stock">Total Stock</label>
-                    <input onBlur={handleValidate} value={productData.stock} onChange={(e) => handleChange(e)} type="number" className="form-control" id="stock" style={{ width: '50%' }} />
-                    {stockError && <div style={{ color: 'red' }}>{stockError}</div>}
+                    <input value={productData.stock} onChange={(e) => handleChange(e)} type="number" className="form-control" id="stock" style={{ width: '50%' }} />
+                    {productError.stock && <div style={{ color: 'red' }}>{productError.stock}</div>}
 
                   </div>
                   <div className="form-group col-md-6">
                     <label htmlFor="retailPrice">Retail Price</label>
-                    <input onBlur={handleValidate} value={productData.retailPrice} onChange={(e) => handleChange(e)} type="number" className="form-control" id="retailPrice" />
-                    {retailPriceError && <div style={{ color: 'red' }}>{retailPriceError}</div>}
+                    <input value={productData.retailPrice} onChange={(e) => handleChange(e)} type="number" className="form-control" id="retailPrice" />
+                    {productError.retailPrice && <div style={{ color: 'red' }}>{productError.retailPrice}</div>}
 
                   </div>
                   <div className="form-group col-md-6">
                     <label htmlFor="salePrice">Sale Price</label>
-                    <input onBlur={handleValidate} value={productData.salePrice} onChange={(e) => handleChange(e)} type="number" className="form-control" id="salePrice" />
-                    {salePriceError && <div style={{ color: 'red' }}>{salePriceError}</div>}
+                    <input value={productData.salePrice} onChange={(e) => handleChange(e)} type="number" className="form-control" id="salePrice" />
+                    {productError.salePrice && <div style={{ color: 'red' }}>{productError.salePrice}</div>}
 
                   </div>
                 </div>
@@ -159,6 +168,7 @@ const AddProducts = ({ open, setOpen, maxWidth, buttonWidth }) => {
         <div style={{ width: buttonWidth ? buttonWidth : '50%' }} className={classes.buttonsContainer}>
           <Button onClick={() => {
             setProductData(defaultProductData)
+            setProductError(defaultProductError)
             setOpen(false)
           }} text="Cancel" width="100%" bgColor="#ab7171" className={classes.cancel} />
           <Button onClick={() => handleSave()} text="Save" width="100%" className={classes.cancel} />
