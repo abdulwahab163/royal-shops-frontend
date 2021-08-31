@@ -44,16 +44,16 @@ const ProductCard = ({ id, name, category, stock, salePrice, retailPrice, onEdit
         </Box>
         <Grid container justifyContent="space-around">
           <Grid item>
-            <Typography color="textPrimary" gutterBottom variant="subtitle1">
-              Name:<span style={{
-                marginLeft: 26,
+            <Typography color="textPrimary" gutterBottom variant="subtitle1" style={{ display: 'flex' }}>
+              Name:<p style={{
+                margin: '0px 0px 0px 26px',
                 fontWeight: "bold",
                 display: "inlineBlock",
-                width: 200,
+                width: 100,
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
-              }}>{name}</span>
+              }}>{name}</p>
             </Typography>
             <Typography color="textPrimary" gutterBottom variant="subtitle1">
               Category: <span style={{
