@@ -56,13 +56,15 @@ export default class Product {
       * @returns {Promise <T> | never>}
       */
     getProduct = async (id) => {
-        const res = await http.get(`admin/getProductBy/:${id}`);
-        if (res && res?.data?.success) {
-            return {
-                data: res?.data?.result,
-                success: true,
-            };
-        } else {
+        try {
+            const res = await http.get(`/admin/getProductBy/:${id}`);
+            if (res && res?.data?.success) {
+                return {
+                    data: res?.data?.result,
+                    success: true,
+                };
+            }
+        } catch (e) {
             return {
                 success: false,
                 status: res?.data?.status,
@@ -76,7 +78,7 @@ export default class Product {
       * @returns {Promise <T> | never>}
       */
     updateProduct = async (id, name) => {
-        const res = await http.put(`admin/updateProduct/:${id}`, name);
+        const res = await http.put(`/admin/updateProduct/:${id}`, name);
         if (res && res?.data?.success) {
             return {
                 data: res?.data?.result,
@@ -98,7 +100,7 @@ export default class Product {
 
     deleteProduct = async (id) => {
         try {
-            const res = await http.delete(`admin/deleteProduct/:${id}`);
+            const res = await http.delete(`/admin/deleteProduct/:${id}`);
             if (res && res?.data?.success) {
                 return {
                     data: res?.data?.result,

@@ -21,7 +21,6 @@ export const getAllCategories = () => async (disptach) => {
             });
         }
     } catch (e) {
-        console.log("catch", e)
         disptach({
             type: categoryConstants.GET_ALL_CATEGORIES_FAIL,
             payload: res.message,

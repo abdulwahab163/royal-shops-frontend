@@ -49,7 +49,7 @@ export const getProduct = (id) => async (disptach) => {
         if (res?.success) {
             disptach({
                 type: productConstants.GET_PRODUCT_SUCCESS,
-                payload: res?.user?.data,
+                payload: res?.data,
             });
         } else {
             disptach({

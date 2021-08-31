@@ -42,7 +42,7 @@ let defaultProductError = {
   stock: false
 }
 
-const AddProducts = ({ open, setOpen, maxWidth, buttonWidth }) => {
+const AddProducts = ({ product, open, setOpen, maxWidth, buttonWidth }) => {
   const classes = useStyles();
   const dispatch = useDispatch()
   const [fullWidth, setFullWidth] = React.useState(true);
@@ -55,6 +55,12 @@ const AddProducts = ({ open, setOpen, maxWidth, buttonWidth }) => {
   useEffect(() => {
     dispatch(getAllCategories())
   }, [])
+
+  useEffect(() => {
+    if (product) {
+      setProductData(product)
+    }
+  }, [product])
 
   const handleChange = (e) => {
     setProductError(defaultProductError)
@@ -123,9 +129,9 @@ const AddProducts = ({ open, setOpen, maxWidth, buttonWidth }) => {
                   <div className="form-group col-md-12">
                     <label htmlFor="CategoryId">Category</label>
                     <select
-
-                      onChange={(e) => handleChange(e)}
-                      id="CategoryId" className="form-control">
+                      id="CategoryId" className="form-control"
+                      value={productData.category}
+                      onChange={(e) => handleChange(e)}>
                       <option selected disabled>choose</option>
                       {categories.map(cat => (<option key={cat.id} id="CategoryId" value={cat.id} >{cat.name}</option>))}
                     </select>
