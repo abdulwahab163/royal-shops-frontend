@@ -28,12 +28,23 @@ const SettingsPassword = (props) => {
         <CardHeader
           subheader="Update password"
           title="Password"
+          style={{ display: 'flex', flexDirection: 'column', textAlign: 'center' }}
         />
         <Divider />
         <CardContent>
           <TextField
             fullWidth
-            label="Password"
+            label="Current Password"
+            margin="normal"
+            name="currentPassword"
+            onChange={handleChange}
+            type="password"
+            value={values.currentPassword}
+            variant="outlined"
+          />
+          <TextField
+            fullWidth
+            label="New Password"
             margin="normal"
             name="password"
             onChange={handleChange}

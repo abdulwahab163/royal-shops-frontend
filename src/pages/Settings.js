@@ -14,7 +14,7 @@ const SettingsView = () => (
         py: 3
       }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth="md">
         <Box sx={{ pt: 3 }}>
           <SettingsPassword />
         </Box>
