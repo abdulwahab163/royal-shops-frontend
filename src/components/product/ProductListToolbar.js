@@ -47,10 +47,10 @@ const ProductListToolbar = (props) => {
         justifyContent: 'flex-end'
       }}
     >
-      <Button onClick={() => setAddCategoryOpen(true)} style={{ marginRight: 10 }} className={classes.button} color="primary" startIcon={<CategoryIcon />} variant="contained">
+      <Button onClick={() => setAddCategoryOpen(true)} style={{ marginRight: 10, outline: 'none' }} className={classes.button} color="primary" startIcon={<CategoryIcon />} variant="contained">
         Add Category
       </Button>
-      <Button onClick={() => setAddProductOpen(true)} className={classes.button} color="primary" startIcon={<AddIcon />} variant="contained">
+      <Button onClick={() => setAddProductOpen(true)} style={{ outline: 'none' }} className={classes.button} color="primary" startIcon={<AddIcon />} variant="contained">
         Add Product
       </Button>
     </Box>

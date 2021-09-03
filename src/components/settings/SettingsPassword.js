@@ -63,8 +63,9 @@ const SettingsPassword = (props) => {
           <Button
             color="primary"
             variant="contained"
+            style={{ outline: 'none' }}
           >
-            Update
+            Update Password
           </Button>
         </Box>
       </Card>

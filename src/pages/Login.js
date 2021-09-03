@@ -118,6 +118,7 @@ const Login = () => {
                     size="large"
                     type="submit"
                     variant="contained"
+                    style={{ outline: 'none' }}
                   >
                     Sign in now
                   </Button>

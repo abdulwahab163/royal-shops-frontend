@@ -151,6 +151,7 @@ const AccountProfileDetails = (props) => {
           <Button
             color="primary"
             variant="contained"
+            style={{ outline: 'none' }}
           >
             Save details
           </Button>

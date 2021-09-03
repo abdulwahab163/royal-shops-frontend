@@ -63,6 +63,7 @@ const AccountProfile = (props) => (
         color="primary"
         fullWidth
         variant="text"
+        outline='none'
       >
         Upload picture
       </Button>

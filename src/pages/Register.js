@@ -260,6 +260,7 @@ const Register = () => {
                     size="large"
                     type="submit"
                     variant="contained"
+                    style={{ outline: 'none' }}
                   >
                     Sign up now
                   </Button>

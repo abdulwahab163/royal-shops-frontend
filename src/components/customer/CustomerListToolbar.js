@@ -38,7 +38,7 @@ const CustomerListToolbar = (props) => {
           justifyContent: 'flex-end'
         }}
       >
-        <Button onClick={() => setAddCustomerOpen(!addCustomerOpen)} color="primary" variant="contained" startIcon={<AddIcon />}>
+        <Button onClick={() => setAddCustomerOpen(!addCustomerOpen)} style={{ outline: 'none' }} color="primary" variant="contained" startIcon={<AddIcon />}>
           Add customer
         </Button>
       </Box>
