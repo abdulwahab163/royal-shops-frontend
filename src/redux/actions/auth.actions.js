@@ -73,6 +73,24 @@ export const logout = () => (disptach) => {
 	disptach({ type: authConstants.LOGOUT, payload: "Logged Out Successfully" });
 };
 
+export const changePassword = (data) => async (disptach) => {
+
+	disptach({ type: authConstants.CHANGE_PASSWORD_REQUEST });
+
+	const res = await auth.changePassword(data);
+	if (res?.success) {
+		disptach({
+			type: authConstants.CHANGE_PASSWORD__SUCCESS,
+			payload: res?.data,
+		});
+	} else {
+		disptach({
+			type: authConstants.CHANGE_PASSWORD__FAIL,
+			payload: res.message,
+		});
+	}
+};
+
 export const setUserAndToken = (token, userInfo) => async (disptach) => {
 	disptach({ type: authConstants.SET_USER_AND_TOKEN, payload: { token, userInfo } });
 }

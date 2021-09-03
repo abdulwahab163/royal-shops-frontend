@@ -43,6 +43,28 @@ export default class Auth {
 		}
 	};
 
+	/**
+		 * Change Password of Current User
+		 * @returns {Promise <T> | never>}
+		 */
+	changePassword = async (data) => {
+		const res = await http.post(`/user/change-password/:${data.id}`, { oldPassword: data.oldPassword, newPassword: data.newPassword });
+		if (res && res?.data?.success) {
+			return {
+				user: res?.data?.result,
+				success: true,
+			};
+		} else {
+			return {
+				success: false,
+				status: res?.data?.status,
+				message: res?.data?.msg,
+			};
+		}
+
+	};
+
+
 	getUserInfo = async () => {
 		const userInfo = await http.get('user/user-info');
 		if (userInfo && userInfo?.data?.success) {

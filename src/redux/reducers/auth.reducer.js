@@ -95,6 +95,29 @@ const authReducer = (state = initialState, action) => {
 				error: null
 			};
 		}
+		case authConstants.CHANGE_PASSWORD_REQUEST: {
+			return {
+				...state,
+				loading: true,
+				error: null
+			};
+		}
+		case authConstants.CHANGE_PASSWORD_SUCCESS: {
+			toastMessage("Password Updated", 'success')
+			return {
+				...state,
+				user: null,
+				isAuthenticated: false,
+				error: null
+			};
+		}
+		case authConstants.CHANGE_PASSWORD_FAIL: {
+			toastMessage(payload, 'error')
+			return {
+				...state,
+				error: payload
+			};
+		}
 		case authConstants.SET_USER_AND_TOKEN: {
 			return {
 				...state,

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
   Button,
@@ -8,79 +9,125 @@ import {
   Divider,
   TextField
 } from '@material-ui/core';
+import * as Yup from 'yup';
+import { Formik } from 'formik';
+
+import { changePassword } from './../../redux/actions/auth.actions'
+
 
 const SettingsPassword = (props) => {
-  const [values, setValues] = useState({
-    password: '',
-    confirm: ''
-  });
+  const dispatch = useDispatch()
 
-  const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
+  const user = useSelector(state => state.auth.user)
+
+  const handleChangePassword = ({ oldPassword, newPassword }) => {
+
+    console.log("chage", user)
+    dispatch(changePassword({ oldPassword, newPassword, id: user.id }))
   };
 
   return (
-    <form {...props}>
-      <Card>
-        <CardHeader
-          subheader="Update password"
-          title="Password"
-          style={{ display: 'flex', flexDirection: 'column', textAlign: 'center' }}
-        />
-        <Divider />
-        <CardContent>
-          <TextField
-            fullWidth
-            label="Current Password"
-            margin="normal"
-            name="currentPassword"
-            onChange={handleChange}
-            type="password"
-            value={values.currentPassword}
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            label="New Password"
-            margin="normal"
-            name="password"
-            onChange={handleChange}
-            type="password"
-            value={values.password}
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            label="Confirm password"
-            margin="normal"
-            name="confirm"
-            onChange={handleChange}
-            type="password"
-            value={values.confirm}
-            variant="outlined"
-          />
-        </CardContent>
-        <Divider />
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            p: 2
+    <Card >
+      <CardHeader
+        subheader="Update password"
+        title="Password"
+      />
+      <Divider />
+      <CardContent style={{ paddingBottom: 0 }}>
+        <Formik
+          initialValues={{
+            oldPassword: '',
+            newPassword: '',
+            confirmPassword: '',
+          }}
+          validationSchema={Yup.object().shape({
+            oldPassword: Yup.string().max(255).required('Old Password is required'),
+            newPassword: Yup.string().max(255).required('New Password is required'),
+            confirmPassword: Yup.string().when(
+              'newPassword',
+              (confirmPassword, field) =>
+                confirmPassword
+                  ? field.required().oneOf([Yup.ref('newPassword')])
+                  : field
+            ),
+          })}
+          onSubmit={(values) => {
+            handleChangePassword(values);
           }}
         >
-          <Button
-            color="primary"
-            variant="contained"
-            style={{ outline: 'none' }}
-          >
-            Update Password
-          </Button>
-        </Box>
-      </Card>
-    </form>
+          {({
+            errors,
+            handleBlur,
+            handleChange,
+            handleSubmit,
+            isSubmitting,
+            touched,
+            values
+          }) => (
+            <form onSubmit={handleSubmit}>
+              <TextField
+                error={Boolean(touched.oldPassword && errors.oldPassword)}
+                fullWidth
+                helperText={touched.oldPassword && errors.oldPassword}
+                label="Old Password"
+                margin="normal"
+                name="oldPassword"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                type="password"
+                value={values.oldPassword}
+                variant="outlined"
+              />
+              <TextField
+                error={Boolean(touched.newPassword && errors.newPassword)}
+                fullWidth
+                helperText={touched.newPassword && errors.newPassword}
+                label="New Password"
+                margin="normal"
+                name="newPassword"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                type="password"
+                value={values.newPassword}
+                variant="outlined"
+              />
+              <TextField
+                error={Boolean(touched.confirmPassword && errors.confirmPassword)}
+                fullWidth
+                helperText={touched.confirmPassword && errors.confirmPassword}
+                label="Confirm Password"
+                margin="normal"
+                name="confirmPassword"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                type="password"
+                value={values.confirmPassword}
+                variant="outlined"
+              />
+              <Divider />
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+
+                  p: 2
+                }}
+              >
+                <Button
+                  color="primary"
+                  type="submit"
+                  variant="contained"
+                  disabled={isSubmitting}
+                  style={{ outline: 'none' }}
+                >
+                  Update Password
+                </Button>
+              </Box>
+            </form>
+          )}
+        </Formik>
+      </CardContent>
+    </Card>
   );
 };
 
