@@ -65,9 +65,7 @@ const CustomerListToolbar = (props) => {
         </Card>
       </Box>
       {/* Customer Dialog */}
-      <Dialog maxWidth="sm" buttonWidth='100%' open={addCustomerOpen} setOpen={setAddCustomerOpen} onSave={() => { handleCustomerSave(); setCustomerData(defaultValue); }} onCancel={() => setCustomerData(defaultValue)}>
-        <AddCustomer customerData={customerData} setCustomerData={setCustomerData} />
-      </Dialog>
+      <AddCustomer maxWidth="sm" buttonWidth='100%' open={addCustomerOpen} setOpen={setAddCustomerOpen} />
     </Box>
   );
 }

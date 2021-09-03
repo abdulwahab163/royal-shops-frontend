@@ -44,50 +44,38 @@ export const getProduct = (id) => async (disptach) => {
 
     disptach({ type: productConstants.GET_PRODUCT_REQUEST });
 
-    try {
-        const res = await product.getProduct(id);
-        if (res?.success) {
-            disptach({
-                type: productConstants.GET_PRODUCT_SUCCESS,
-                payload: res?.data,
-            });
-        } else {
-            disptach({
-                type: productConstants.GET_PRODUCT_FAIL,
-                payload: res.message,
-            });
-        }
-    } catch (e) {
+    const res = await product.getProduct(id);
+    if (res?.success) {
+        disptach({
+            type: productConstants.GET_PRODUCT_SUCCESS,
+            payload: res?.data,
+        });
+    } else {
         disptach({
             type: productConstants.GET_PRODUCT_FAIL,
-            payload: "Something Went Wrong",
+            payload: res.message,
         });
     }
+
 };
 
 export const updateProduct = (id, product) => async (disptach) => {
 
     disptach({ type: productConstants.UPDATE_PRODUCT_REQUEST });
 
-    try {
-        const res = await product.updateProduct(id, product);
-        if (res?.success) {
-            disptach({
-                type: productConstants.UPDATE_PRODUCT_SUCCESS,
-                payload: res?.user?.data,
-            });
-        } else {
-            disptach({
-                type: productConstants.UPDATE_PRODUCT_FAIL,
-                payload: res.message,
-            });
-        }
-    } catch (e) {
+    const res = await product.updateProduct(id, product);
+    if (res?.success) {
+        disptach({
+            type: productConstants.UPDATE_PRODUCT_SUCCESS,
+            payload: res?.data,
+        });
+    } else {
         disptach({
             type: productConstants.UPDATE_PRODUCT_FAIL,
-            payload: "Something Went Wrong",
+            payload: res.message,
         });
     }
+
 }
 export const deleteProduct = (id) => async (disptach) => {
 
